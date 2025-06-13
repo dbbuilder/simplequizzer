@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Quizzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
+    <h1 id="quizTitle" class="text-3xl font-bold mb-4 text-center">Simple Quizzer: Azure Entra to GCP IAM</h1>
+
+    <div id="jsonView" class="mb-6">
+      <h3 class="text-xl font-semibold">Paste Question JSON</h3>
+      <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono"></textarea>
+      <input type="file" id="jsonFile" accept="application/json" class="mt-2" />
+      <button class="mt-2 bg-green-500 text-white px-4 py-2 rounded" onclick="loadFromJson()">Start Quiz</button>
+    </div>
+
+    <div id="quizView" class="hidden">
+      <div id="quiz" class="mb-6"></div>
+      <div class="flex justify-between items-center mb-6">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" onclick="prevQuestion()" id="prevBtn">Previous</button>
+        <span id="progress" class="text-sm text-gray-600"></span>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" onclick="nextQuestion()" id="nextBtn">Next</button>
+      </div>
+      <button class="w-full bg-purple-600 text-white px-4 py-3 rounded text-lg" onclick="showReportView()">Finish Quiz</button>
+    </div>
+
+    <div id="reportView" class="hidden">
+      <div id="report" class="mt-8"></div>
+      <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded" onclick="location.reload()">Start Over</button>
+    </div>
+  </div>
+
+  <script>
+    let questions = [];
+    let current = 0;
+    let title = null;
+
+    function saveState() {
+      localStorage.setItem('quizState', JSON.stringify(userAnswers));
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem('quizState');
+      return saved ? JSON.parse(saved) : {};
+    }
+
+    const userAnswers = loadState();
+
+    function renderQuestion() {
+      const q = questions[current];
+      const answer = userAnswers[q.id] || {};
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = `
+        <div class="space-y-4">
+          <div class="text-xl font-medium">Question ${q.id}: ${q.question}</div>
+          <div class="space-y-2">
+            ${q.options.map(opt => `
+              <label class="block">
+                <input type="radio" name="option" value="${opt}" class="mr-2" ${answer.selected === opt ? 'checked' : ''}>
+                ${opt}
+              </label>`).join('')}
+          </div>
+          <div>
+            <label class="block font-medium">Notes:</label>
+            <textarea id="notes" class="w-full p-2 border rounded">${answer.notes || ''}</textarea>
+          </div>
+          <div>
+            <label class="block font-medium mb-1">Comfort Level:</label>
+            <div id="comfortOptions" class="flex justify-between">
+              ${[1,2,3,4,5].map(val => `
+                <label class="flex flex-col items-center">
+                  <input type="radio" name="comfort" value="${val}" ${answer.comfort == val ? 'checked' : ''}>
+                  <span class="text-sm">${['Very Uncomfortable','Uncomfortable','Neutral','Comfortable','Very Comfortable'][val-1]}</span>
+                </label>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll('input[name=option]').forEach(el => el.addEventListener('change', saveAnswer));
+      document.querySelectorAll('input[name=comfort]').forEach(el => el.addEventListener('change', saveAnswer));
+      document.getElementById('notes').addEventListener('input', saveAnswer);
+
+      document.getElementById('progress').innerText = `Question ${current + 1} of ${questions.length}`;
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').disabled = current === questions.length - 1;
+    }
+
+    function saveAnswer() {
+      const selected = document.querySelector('input[name=option]:checked');
+      const notes = document.getElementById('notes').value;
+      const comfort = document.querySelector('input[name=comfort]:checked')?.value;
+      userAnswers[questions[current].id] = {
+        selected: selected ? selected.value : null,
+        notes,
+        comfort
+      };
+      saveState();
+    }
+
+    function prevQuestion() {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    }
+
+    function nextQuestion() {
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+      }
+    }
+
+    function showReportView() {
+      document.getElementById('quizView').classList.add('hidden');
+      document.getElementById('reportView').classList.remove('hidden');
+      generateReport();
+    }
+
+    function generateReport() {
+      let score = 0;
+      const lines = questions.map(q => {
+        const ans = userAnswers[q.id];
+        const correct = ans && ans.selected === q.answer;
+        if (correct) score++;
+        return `
+          <li class="mb-3">
+            <div class="font-semibold ${correct ? 'text-green-700' : 'text-red-600'}">
+              Q${q.id}: ${correct ? 'Correct' : 'Incorrect'} - Selected: ${ans?.selected || 'None'}, Expected: ${q.answer}
+            </div>
+            <div class="ml-4 text-sm text-gray-800">
+              Comfort: ${ans?.comfort || '-'}, Notes: ${ans?.notes || '-'}
+              ${q.explanation ? `<div class="mt-1 italic text-gray-600">Explanation: ${q.explanation}</div>` : ''}
+            </div>
+          </li>`;
+      }).join('');
+
+      document.getElementById('report').innerHTML = `
+        <div class="bg-gray-50 p-4 rounded border">
+          <h2 class="text-2xl font-bold mb-2">Quiz Report</h2>
+          <ul class="list-disc pl-5 space-y-1">${lines}</ul>
+          <div class="mt-4 text-lg font-semibold">Total Score: ${score} / ${questions.length}</div>
+        </div>
+      `;
+    }
+
+    function loadFromJson() {
+      const seedText = document.getElementById('jsonSeed').value;
+      const fileInput = document.getElementById('jsonFile');
+
+      if (fileInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            processJson(e.target.result);
+          } catch (err) {
+            alert('Error loading JSON file: ' + err.message);
+          }
+        };
+        reader.readAsText(fileInput.files[0]);
+      } else {
+        try {
+          processJson(seedText);
+        } catch (err) {
+          alert('Error parsing JSON: ' + err.message);
+        }
+      }
+    }
+
+    function processJson(jsonText) {
+      const parsed = JSON.parse(jsonText);
+      const array = Array.isArray(parsed) ? parsed : parsed.questions;
+      if (!Array.isArray(array)) {
+        throw new Error('Expected an array or an object with a "questions" array.');
+      }
+      if (parsed.title) {
+        document.getElementById('quizTitle').innerText = parsed.title;
+      }
+      questions = array.map((q, idx) => ({
+        id: idx + 1,
+        question: q.question,
+        options: q.options,
+        answer: q.answer,
+        explanation: q.explanation || null
+      }));
+      current = 0;
+      document.getElementById('jsonView').classList.add('hidden');
+      document.getElementById('quizView').classList.remove('hidden');
+      renderQuestion();
+    }
+  </script>
+</body>
+</html>
