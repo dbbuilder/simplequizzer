@@ -84,9 +84,11 @@
           <div class="space-y-2">
             ${q.options.map(opt => `
               <label class="block cursor-pointer">
-                <input type="radio" name="option" value="${opt}" class="mr-2 hidden" ${answer.selected === opt ? 'checked' : ''}>
-                <span class="inline-block p-2 border rounded w-full ${answer.selected === opt ? 'bg-blue-100' : 'hover:bg-gray-100'}">${opt}</span>
-              </label>`).join('')}
+  <input type="radio" name="option" value="${opt}" class="sr-only" ${answer.selected === opt ? 'checked' : ''}>
+  <span onclick="document.querySelectorAll('input[name=option]').forEach(r => r.checked = false); this.previousElementSibling.checked = true; saveAnswer(); renderQuestion();" class="inline-block p-2 border rounded w-full ${answer.selected === opt ? 'bg-blue-100 ring-2 ring-blue-500' : 'hover:bg-gray-100'}">
+    ${opt}
+  </span>
+</label>`).join('')}
           </div>
           <div>
             <label class="block font-medium">Notes:</label>
