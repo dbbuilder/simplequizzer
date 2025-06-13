@@ -1,0 +1,544 @@
+{
+  "title": "Expert Major League Baseball History: Deep Cuts, Complex Rules, and Forgotten Moments",
+  "questions": [
+    {
+      "question": "According to MLB Rule 6.03(a)(3), what happens if a batter enters the box with an illegal bat, but the opposing team doesn't appeal until after the at-bat is completed with a fair ball?",
+      "options": [
+        "A. The batter is out, runners return",
+        "B. The play stands, but the batter is ejected for the next at-bat",
+        "C. The illegal bat penalty cannot be enforced after the play",
+        "D. The umpire must declare the batter out regardless of when discovered"
+      ],
+      "answer": "C. The illegal bat penalty cannot be enforced after the play",
+      "explanation": "Under Rule 6.03(a)(3), if a batter completes his at-bat and reaches first base safely, and the opposing team does not appeal the illegal bat before the next pitch or play, the illegal bat penalty cannot be enforced. The appeal must be made immediately after the completed at-bat."
+    },
+    {
+      "question": "In 1908, Fred Merkle's famous baserunning blunder cost the Giants a pennant. What specific rule violation occurred that nullified the apparent game-winning run?",
+      "options": [
+        "A. Merkle failed to touch second base on the game-winning hit",
+        "B. Merkle passed a preceding runner",
+        "C. Merkle left the baseline",
+        "D. Merkle interfered with the fielder"
+      ],
+      "answer": "A. Merkle failed to touch second base on the game-winning hit",
+      "explanation": "Fred Merkle failed to touch second base after Al Bridwell's apparent game-winning hit in the bottom of the 9th. When the Cubs retrieved the ball and touched second base, Merkle was ruled out for abandoning the basepath, nullifying the run. The game was declared a tie and later replayed, which the Cubs won to take the pennant."
+    },
+    {
+      "question": "What is the only way a pitcher can legally deliver a pitch while not in contact with the pitcher's plate?",
+      "options": [
+        "A. During an intentional walk",
+        "B. There is no legal way to pitch without contact with the rubber",
+        "C. When delivering from the set position after stepping off",
+        "D. During a pick-off attempt that transitions to a pitch"
+      ],
+      "answer": "B. There is no legal way to pitch without contact with the rubber",
+      "explanation": "According to MLB rules, a pitcher must be in contact with the pitcher's plate (rubber) when delivering a pitch to home plate. Any pitch delivered without the pitcher's pivot foot in contact with the rubber is an illegal pitch, resulting in a ball being called (or balk with runners on base)."
+    },
+    {
+      "question": "Who holds the record for most consecutive games played at the start of a career, and what ended the streak?",
+      "options": [
+        "A. Cal Ripken Jr. - 1,207 games (military service)",
+        "B. Frank McCormick - 652 games (back injury)",
+        "C. George Pinckney - 577 games (released)",
+        "D. Ernie Banks - 424 games (wrist injury)"
+      ],
+      "answer": "B. Frank McCormick - 652 games (back injury)",
+      "explanation": "Frank McCormick of the Cincinnati Reds played 652 consecutive games from the start of his career (1934-1937), a record that still stands. The streak ended when he suffered a back injury. This is different from overall consecutive games played records."
+    },
+    {
+      "question": "Under current rules, if a fair batted ball hits a runner in fair territory before passing an infielder, and the nearest fielder is positioned behind the runner, what is the ruling?",
+      "options": [
+        "A. Runner is out, batter gets single",
+        "B. Ball is dead, batter gets single, runner advances one base",
+        "C. Ball remains live if it deflects to another fielder",
+        "D. Runner is out only if the contact was intentional"
+      ],
+      "answer": "C. Ball remains live if it deflects to another fielder",
+      "explanation": "If a fair batted ball hits a runner before passing an infielder, but the nearest fielder is positioned behind the runner (closer to home plate), the ball remains live. The runner is not out because he had no opportunity to avoid the ball, and play continues based on where the ball goes."
+    },
+    {
+      "question": "What was unique about the 1981 season that has never been repeated in MLB history?",
+      "options": [
+        "A. It was the only season with three divisions per league",
+        "B. It featured a split-season format due to a players' strike",
+        "C. All games were played in neutral sites",
+        "D. It was the only season without a World Series"
+      ],
+      "answer": "B. It featured a split-season format due to a players' strike",
+      "explanation": "The 1981 season was split into two halves due to a 50-day players' strike. The teams with the best records in each half made the playoffs, creating the only split-season format in modern MLB history. This led to the unusual situation where the Cincinnati Reds had the best overall record in the NL but didn't make the playoffs."
+    },
+    {
+      "question": "In Rule 6.01(a)(10), what constitutes 'spectator interference' versus a legal catch by a fielder?",
+      "options": [
+        "A. Any fan contact with a ball in play constitutes interference",
+        "B. Fans can legally catch balls that cross into the stands, even if a fielder could have caught it",
+        "C. Interference only occurs if the fan reaches onto the field",
+        "D. The umpire's judgment determines if the fielder had a reasonable chance"
+      ],
+      "answer": "B. Fans can legally catch balls that cross into the stands, even if a fielder could have caught it",
+      "explanation": "Under Rule 6.01(a)(10), spectator interference occurs only when a spectator reaches out of the stands or goes on the playing field and touches a live ball. If a ball enters the stands, even if a fielder could have caught it, fans may legally catch or deflect it without interference being called."
+    },
+    {
+      "question": "Who was the last player to achieve 30 stolen bases and 30 home runs in a season before it became common in the 1980s?",
+      "options": [
+        "A. Willie Mays (1956-1957)",
+        "B. Hank Aaron (1963)",
+        "C. Ken Williams (1922)",
+        "D. Tommy Harper (1970)"
+      ],
+      "answer": "D. Tommy Harper (1970)",
+      "explanation": "Tommy Harper of the Milwaukee Brewers achieved 31 home runs and 38 stolen bases in 1970, becoming the last player to reach the 30-30 milestone before the stolen base revolution of the late 1970s and 1980s. Ken Williams was actually the first to do it in 1922."
+    },
+    {
+      "question": "According to the infield fly rule, what happens if a declared infield fly falls untouched in foul territory?",
+      "options": [
+        "A. The batter is automatically out",
+        "B. It's a foul ball, batter continues hitting",
+        "C. Runners may advance at their own risk",
+        "D. The ball is dead and runners return"
+      ],
+      "answer": "B. It's a foul ball, batter continues hitting",
+      "explanation": "If a declared infield fly falls untouched in foul territory, it is simply a foul ball. The infield fly rule only applies to fair territory. Even though 'infield fly' was called, if the ball lands foul, it's treated as any other foul ball and the batter continues his at-bat."
+    },
+    {
+      "question": "What was the 'Curt Flood Rule' and when was it implemented?",
+      "options": [
+        "A. Players could not be traded without consent (1970)",
+        "B. The reserve clause was modified to allow free agency (1975)",
+        "C. Salary arbitration was introduced (1973)",
+        "D. This rule doesn't exist in baseball"
+      ],
+      "answer": "D. This rule doesn't exist in baseball",
+      "explanation": "There is no 'Curt Flood Rule' in baseball. Curt Flood challenged the reserve clause in 1970, but he lost his case. Free agency was established through arbitration cases involving Andy Messersmith and Dave McNally in 1975, not through a specific rule named after Flood."
+    },
+    {
+      "question": "Under Rule 8.01(c), when is a pitcher charged with a balk for 'failing to pitch to the batter'?",
+      "options": [
+        "A. Taking more than 20 seconds between pitches",
+        "B. Stepping off the rubber without attempting a pickoff",
+        "C. Starting the pitching motion but not delivering to home plate or a base",
+        "D. Throwing to a base more than twice in one at-bat"
+      ],
+      "answer": "C. Starting the pitching motion but not delivering to home plate or a base",
+      "explanation": "Rule 8.01(c) states that once a pitcher begins his pitching motion, he must complete it by delivering the ball to home plate or to a base in an attempt to pick off a runner. 'Failing to pitch to the batter' specifically refers to starting the motion but not completing it with a delivery."
+    },
+    {
+      "question": "Who was the last player to steal 100 bases in a season, and what rule change afterward made this feat more difficult?",
+      "options": [
+        "A. Rickey Henderson (1982) - lead-off distances increased",
+        "B. Vince Coleman (1987) - pick-off rules tightened",
+        "C. Tim Raines (1983) - larger leads prohibited",
+        "D. No player has stolen 100 bases since 1900"
+      ],
+      "answer": "A. Rickey Henderson (1982) - lead-off distances increased",
+      "explanation": "Rickey Henderson stole 130 bases in 1982, the last player to reach 100. While no specific rule change directly targeted base stealing, the combination of better pick-off techniques, improved catcher framing, and strategic changes in baseball made 100+ steals increasingly rare."
+    },
+    {
+      "question": "In the 1912 World Series, what unprecedented event occurred that has never happened since?",
+      "options": [
+        "A. A game was declared a tie due to darkness",
+        "B. A player hit for the cycle in a World Series game",
+        "C. A perfect game was thrown",
+        "D. The series required an 8th game"
+      ],
+      "answer": "A. A game was declared a tie due to darkness",
+      "explanation": "Game 2 of the 1912 World Series between the Boston Red Sox and New York Giants was called a tie after 11 innings due to darkness, with the score 6-6. This required an additional game to be played, making it the only World Series to feature more than 7 games due to a tie."
+    },
+    {
+      "question": "According to Rule 6.03(a)(4), what constitutes an 'illegal action by the batter' that results in the batter being called out?",
+      "options": [
+        "A. Stepping out of the batter's box during the pitch",
+        "B. Having one foot completely outside the batter's box when making contact",
+        "C. Switching batter's boxes after taking a pitch",
+        "D. Calling timeout during the pitcher's motion"
+      ],
+      "answer": "B. Having one foot completely outside the batter's box when making contact",
+      "explanation": "Rule 6.03(a)(4) states that a batter is out if he hits the ball (fair or foul) while one or both feet are completely outside the batter's box. The key is that the foot must be completely outside the box when contact with the ball is made."
+    },
+    {
+      "question": "What was the specific ruling in the 'George Brett Pine Tar Game' of 1983, and what happened when the game was completed?",
+      "options": [
+        "A. The home run was upheld, game continued from that point",
+        "B. Brett was ejected, home run nullified, Yankees won",
+        "C. The home run counted, but the game was replayed from the beginning",
+        "D. The game was suspended and completed weeks later with the Royals winning"
+      ],
+      "answer": "D. The game was suspended and completed weeks later with the Royals winning",
+      "explanation": "After George Brett's home run was initially nullified due to excessive pine tar on his bat, the American League upheld the Royals' protest. The game was resumed 25 days later from the point of Brett's home run, with the Royals leading 5-4, and they held on to win."
+    },
+    {
+      "question": "Under current replay rules, which of these plays is NOT subject to review?",
+      "options": [
+        "A. Whether a runner left early on a tag-up play",
+        "B. Ball or strike calls",
+        "C. Check swings (whether the batter offered at the pitch)",
+        "D. Infield fly rule application"
+      ],
+      "answer": "C. Check swings (whether the batter offered at the pitch)",
+      "explanation": "Check swing calls (whether a batter offered at a pitch) are not subject to video replay review. While ball/strike calls are generally not reviewable, certain boundary calls related to strikes can be reviewed. Check swings remain a judgment call that cannot be overturned via replay."
+    },
+    {
+      "question": "What is the 'Bennett Rule' and why was it implemented?",
+      "options": [
+        "A. Catchers must wear protective equipment (after Charlie Bennett's injury)",
+        "B. This is not an actual baseball rule",
+        "C. Pitchers cannot intentionally hit batters (after Beaning incidents)",
+        "D. Umpires must warn both teams before ejections"
+      ],
+      "answer": "B. This is not an actual baseball rule",
+      "explanation": "There is no 'Bennett Rule' in baseball. While Charlie Bennett was a notable 19th-century catcher, no specific rule bears his name. This question tests knowledge of actual versus mythical baseball rules and regulations."
+    },
+    {
+      "question": "In what year did the American League adopt the designated hitter rule, and what was the vote margin?",
+      "options": [
+        "A. 1973, unanimous",
+        "B. 1973, 8-4",
+        "C. 1975, 7-5",
+        "D. 1972, 6-6 with tie-breaker"
+      ],
+      "answer": "B. 1973, 8-4",
+      "explanation": "The American League adopted the designated hitter rule for the 1973 season by a vote of 8-4. The rule was initially intended as a three-year experiment to increase offense, but it became permanent. The National League has consistently rejected adopting the DH until universal adoption in 2022."
+    },
+    {
+      "question": "According to Rule 5.09(b)(7), when is a runner out for 'abandoning his effort to run the bases'?",
+      "options": [
+        "A. When he walks toward the dugout after a fly ball is caught",
+        "B. When he stops running due to injury",
+        "C. When he leaves the basepath by more than 3 feet",
+        "D. When he clearly abandons his effort to advance, as judged by the umpire"
+      ],
+      "answer": "D. When he clearly abandons his effort to advance, as judged by the umpire",
+      "explanation": "Rule 5.09(b)(7) covers abandonment, which is a judgment call by the umpire. A runner is out if he clearly abandons his effort to reach the next base. Simply walking toward the dugout or stopping briefly doesn't automatically constitute abandonment - the umpire must judge the runner's intent."
+    },
+    {
+      "question": "In 1969, what rule change significantly affected the game strategy and is often credited with the 'Year of the Pitcher' ending?",
+      "options": [
+        "A. The pitcher's mound was lowered from 15 inches to 10 inches",
+        "B. The strike zone was expanded",
+        "C. Relievers were limited to 3 innings per game",
+        "D. The designated hitter was introduced in both leagues"
+      ],
+      "answer": "A. The pitcher's mound was lowered from 15 inches to 10 inches",
+      "explanation": "After the 1968 'Year of the Pitcher' when batting averages plummeted and pitchers dominated, MLB lowered the pitcher's mound from 15 inches to 10 inches for the 1969 season. This change, along with shrinking the strike zone, helped restore offensive balance to the game."
+    },
+    {
+      "question": "Who was the only player to play for both the Seattle Pilots and Seattle Mariners?",
+      "options": [
+        "A. Ruppert Jones",
+        "B. Diego Segui",
+        "C. Don Mincher",
+        "D. No player accomplished this feat"
+      ],
+      "answer": "B. Diego Segui",
+      "explanation": "Diego Segui is the only player to play for both Seattle franchises. He pitched for the Seattle Pilots in their only season (1969) and later pitched for the Seattle Mariners in their inaugural season (1977). The Pilots moved to Milwaukee after 1969 to become the Brewers."
+    },
+    {
+      "question": "According to Rule 6.05(b), what happens if a batter hits a ball that strikes him in fair territory while he's running to first base?",
+      "options": [
+        "A. Foul ball, batter continues hitting",
+        "B. Batter is out, ball is dead",
+        "C. Live ball if it was unintentional",
+        "D. Batter is safe, runners advance"
+      ],
+      "answer": "B. Batter is out, ball is dead",
+      "explanation": "Under Rule 6.05(b), if a batted ball strikes the batter-runner in fair territory before reaching first base, the batter-runner is out and the ball is dead. This prevents a batter from intentionally deflecting a ball to avoid a double play or help his team."
+    },
+    {
+      "question": "What was the specific controversy surrounding the 1904 World Series?",
+      "options": [
+        "A. The games were cancelled due to the San Francisco earthquake",
+        "B. The New York Giants refused to play the Boston Americans",
+        "C. Both leagues had tie seasons requiring playoffs",
+        "D. The series was extended to best-of-eleven games"
+      ],
+      "answer": "B. The New York Giants refused to play the Boston Americans",
+      "explanation": "New York Giants owner John T. Brush and manager John McGraw refused to play the 1904 World Series against the American League champion Boston Americans, claiming the AL was inferior. This led to the formal World Series agreement in 1905 making the championship mandatory."
+    },
+    {
+      "question": "Under Rule 7.13 (the Buster Posey Rule), when is a runner allowed to deviate from a direct path to home plate?",
+      "options": [
+        "A. Never, the runner must always take the direct path",
+        "B. Only when the catcher is blocking the plate illegally",
+        "C. When the catcher does not have possession of the ball",
+        "D. When avoiding a tag, regardless of the catcher's position"
+      ],
+      "answer": "C. When the catcher does not have possession of the ball",
+      "explanation": "Rule 7.13 states that a runner may deviate from the direct path to home plate to avoid a collision only when the catcher does not have possession of the ball. If the catcher has the ball, the runner must slide or attempt to avoid contact, and cannot deviate from the direct path to dislodge the ball."
+    },
+    {
+      "question": "Who holds the record for most career games as an umpire, and approximately how many games did he officiate?",
+      "options": [
+        "A. Bill Klem - 5,374 games",
+        "B. Bruce Froemming - 5,163 games",
+        "C. Al Barlick - 4,892 games",
+        "D. Doug Harvey - 4,673 games"
+      ],
+      "answer": "B. Bruce Froemming - 5,163 games",
+      "explanation": "Bruce Froemming holds the record for most games umpired in MLB history with 5,163 regular season games during his career from 1971-2007. He also worked 11 World Series and was known for his durability and consistency behind the plate and on the bases."
+    },
+    {
+      "question": "What was unique about the 1994 World Series?",
+      "options": [
+        "A. It was the first series to go to Game 8",
+        "B. It was cancelled due to the players' strike",
+        "C. Both teams had identical regular season records",
+        "D. It was played entirely in neutral venues"
+      ],
+      "answer": "B. It was cancelled due to the players' strike",
+      "explanation": "The 1994 World Series was cancelled due to the players' strike that began on August 12, 1994. This was the first time since 1904 that no World Series was played, and it led to significant fan alienation and attendance drops in subsequent seasons."
+    },
+    {
+      "question": "According to Rule 8.05, which of these actions by a pitcher with runners on base is NOT a balk?",
+      "options": [
+        "A. Failing to come to a complete stop in the set position",
+        "B. Throwing to an unoccupied base with no play being made",
+        "C. Dropping the ball while on the pitcher's plate",
+        "D. Making a quick pitch when the batter is clearly in the box and ready"
+      ],
+      "answer": "D. Making a quick pitch when the batter is clearly in the box and ready",
+      "explanation": "While a quick pitch is illegal, it only becomes a balk if there are runners on base AND the batter is not ready. If the batter is clearly in the box and ready, and the pitcher delivers quickly but legally, it's not a balk. The other options are all specifically listed as balks in Rule 8.05."
+    },
+    {
+      "question": "Who was the last pitcher to win 30 games in a season, and what year did it occur?",
+      "options": [
+        "A. Steve Carlton (1972)",
+        "B. Denny McLain (1968)",
+        "C. Bob Gibson (1968)",
+        "D. Sandy Koufax (1966)"
+      ],
+      "answer": "B. Denny McLain (1968)",
+      "explanation": "Denny McLain of the Detroit Tigers went 31-6 in 1968, becoming the last pitcher to win 30 games in a season. He was also the last pitcher to win both the MVP and Cy Young Award in the same season. No pitcher has come close to 30 wins since the game's evolution toward specialized bullpen usage."
+    },
+    {
+      "question": "What is the 'fourth out' rule and when does it apply?",
+      "options": [
+        "A. When four players are tagged out on the same play",
+        "B. An appeal play that can negate a run scored before the third out",
+        "C. The rule doesn't exist in baseball",
+        "D. When a batter is called out for interference after the third out"
+      ],
+      "answer": "B. An appeal play that can negate a run scored before the third out",
+      "explanation": "The 'fourth out' refers to an advantageous appeal that can be made after three outs have been recorded. If the defense can appeal a runner missing a base or leaving early, and that appeal would result in a force out or timing out that would negate a run, they can make this appeal for strategic advantage."
+    },
+    {
+      "question": "In 1976, what significant rule change was implemented regarding free agency?",
+      "options": [
+        "A. The reserve clause was completely eliminated",
+        "B. Players became free agents after 6 years of service",
+        "C. Salary arbitration was introduced",
+        "D. The first free agent draft was held"
+      ],
+      "answer": "B. Players became free agents after 6 years of service",
+      "explanation": "The 1976 Basic Agreement established that players with six years of major league service time could become free agents. This was the result of the Messersmith-McNally arbitration case that effectively broke the reserve clause and fundamentally changed baseball's economic structure."
+    },
+    {
+      "question": "According to the obstruction rule, what happens if a fielder obstructs a runner while not in possession of the ball?",
+      "options": [
+        "A. The runner is automatically safe at the next base",
+        "B. Play continues, and the umpire awards bases at the end of the play",
+        "C. The ball is immediately dead and the runner advances one base",
+        "D. It's only obstruction if the runner falls down"
+      ],
+      "answer": "B. Play continues, and the umpire awards bases at the end of the play",
+      "explanation": "Under the obstruction rule, when a fielder without the ball impedes a runner's progress, the umpire calls 'obstruction' but allows play to continue. At the end of the play, the umpire awards the obstructed runner (and other runners if necessary) the bases they would have reached without the obstruction."
+    },
+    {
+      "question": "Who was the youngest player to hit 500 career home runs?",
+      "options": [
+        "A. Jimmie Foxx (32 years, 338 days)",
+        "B. Mel Ott (32 years, 169 days)",
+        "C. Alex Rodriguez (32 years, 8 days)",
+        "D. Babe Ruth (33 years, 11 days)"
+      ],
+      "answer": "C. Alex Rodriguez (32 years, 8 days)",
+      "explanation": "Alex Rodriguez reached 500 home runs on August 4, 2007, at age 32 years and 8 days, making him the youngest player to reach this milestone. He broke the previous record held by Jimmie Foxx, who was 32 years and 338 days when he hit his 500th."
+    },
+    {
+      "question": "What was the 'Merkle Rule' that was implemented after the 1908 incident?",
+      "options": [
+        "A. Runners must touch all bases in order",
+        "B. Games cannot end on force plays at second base",
+        "C. There is no specific 'Merkle Rule' - existing rules were clarified",
+        "D. Umpires must watch all runners during scoring plays"
+      ],
+      "answer": "C. There is no specific 'Merkle Rule' - existing rules were clarified",
+      "explanation": "No specific 'Merkle Rule' was created. The 1908 incident led to clarification of existing rules about runners needing to touch all bases and the proper way to appeal missed bases. The rules about force plays and appeals were already in place but were more strictly enforced after the controversy."
+    },
+    {
+      "question": "According to Rule 5.06(c), when can a runner advance on a wild pitch or passed ball?",
+      "options": [
+        "A. Only when there are less than two outs",
+        "B. Only when first base is unoccupied or there are two outs (for dropped third strike)",
+        "C. Anytime the ball gets away from the catcher",
+        "D. Only on the third strike of an at-bat"
+      ],
+      "answer": "C. Anytime the ball gets away from the catcher",
+      "explanation": "Rule 5.06(c) allows runners to advance on any wild pitch or passed ball, regardless of the count or situation. The restriction mentioned in option B applies specifically to the dropped third strike rule (Rule 5.05(a)(2)), not to general wild pitches or passed balls."
+    },
+    {
+      "question": "Who was the first player to be intentionally walked with the bases loaded in a World Series?",
+      "options": [
+        "A. Josh Hamilton (2011)",
+        "B. Barry Bonds (2002)",
+        "C. Reggie Jackson (1977)",
+        "D. This has never happened in World Series history"
+      ],
+      "answer": "D. This has never happened in World Series history",
+      "explanation": "No player has ever been intentionally walked with the bases loaded in World Series history. While Barry Bonds was famously walked intentionally a record 120 times in 2004, and Josh Hamilton was walked with the bases loaded in 2008, neither occurred during the World Series."
+    },
+    {
+      "question": "What was the distance from home plate to the pitcher's mound before it was standardized at 60 feet, 6 inches?",
+      "options": [
+        "A. 45 feet",
+        "B. 50 feet",
+        "C. 55 feet",
+        "D. It was always 60 feet, 6 inches"
+      ],
+      "answer": "B. 50 feet",
+      "explanation": "The pitching distance was 50 feet from 1881-1892. In 1893, it was moved to the current 60 feet, 6 inches to balance the game as pitchers had become too dominant. The odd measurement was reportedly due to a surveyor's error - it was supposed to be 60 feet even."
+    },
+    {
+      "question": "According to Rule 6.01(f), what constitutes interference by a base coach?",
+      "options": [
+        "A. Yelling instructions to the batter during the pitch",
+        "B. Physically assisting a runner or touching a live ball",
+        "C. Standing in the coach's box during play",
+        "D. Arguing with the umpire during an at-bat"
+      ],
+      "answer": "B. Physically assisting a runner or touching a live ball",
+      "explanation": "Rule 6.01(f) states that interference by a base coach occurs when the coach physically assists a runner or touches a live ball. Coaches may give verbal instructions and signals, but any physical contact with a runner during play or touching a live ball constitutes interference."
+    },
+    {
+      "question": "Who was the last pitcher to throw a no-hitter in the World Series?",
+      "options": [
+        "A. Don Larsen (1956)",
+        "B. Bob Gibson (1968)",
+        "C. Fernando Valenzuela (1981)",
+        "D. No pitcher has thrown a no-hitter in World Series history"
+      ],
+      "answer": "A. Don Larsen (1956)",
+      "explanation": "Don Larsen's perfect game in Game 5 of the 1956 World Series against the Brooklyn Dodgers remains the only no-hitter (and perfect game) in World Series history. No pitcher has come close to repeating this feat in the 67 years since."
+    },
+    {
+      "question": "What happens if a batter's uniform or equipment is struck by a pitch that is called a strike?",
+      "options": [
+        "A. The batter is awarded first base",
+        "B. It's a strike, and the pitch counts",
+        "C. The pitch is nullified and doesn't count",
+        "D. The batter is out for interference"
+      ],
+      "answer": "B. It's a strike, and the pitch counts",
+      "explanation": "If a pitch is in the strike zone and hits the batter's uniform or equipment, it's called a strike and the pitch counts. The batter is not awarded first base because the pitch was a strike. Only pitches outside the strike zone that hit the batter result in a hit by pitch."
+    },
+    {
+      "question": "According to Rule 9.05, when does a pitcher receive credit for a save in a tied game?",
+      "options": [
+        "A. If he pitches the final 3 innings and his team wins",
+        "B. If he enters with the tying run on base or at bat",
+        "C. A save cannot be earned in a tied game",
+        "D. If he pitches effectively for 1 inning and the team wins"
+      ],
+      "answer": "C. A save cannot be earned in a tied game",
+      "explanation": "According to Rule 9.05, a save can only be credited when a pitcher preserves a lead. If a pitcher enters a tied game, he cannot earn a save regardless of how long he pitches or how well he performs. The team must be leading when he enters the game."
+    },
+    {
+      "question": "What was unique about the 1885 World Championship Series between Chicago and St. Louis?",
+      "options": [
+        "A. It ended in a tie",
+        "B. Games were played in multiple cities",
+        "C. Both teams claimed victory due to disputed rules",
+        "D. It was the first best-of-seven format"
+      ],
+      "answer": "C. Both teams claimed victory due to disputed rules",
+      "explanation": "The 1885 World Championship Series ended with both teams claiming victory. Chicago won the series 3-3-1, but there was a disputed forfeit in Game 2 and disagreements about rules. Both the Chicago White Stockings and St. Louis Browns claimed the championship, and some baseball historians count it as a tie."
+    },
+    {
+      "question": "Under the current designated hitter rule, can a team choose not to use a DH and have their pitcher hit?",
+      "options": [
+        "A. No, the DH is mandatory in all MLB games",
+        "B. Yes, but only if declared before the game starts",
+        "C. Yes, and they can change their mind during the game",
+        "D. Only in National League parks"
+      ],
+      "answer": "B. Yes, but only if declared before the game starts",
+      "explanation": "Teams can choose not to use a designated hitter and have their pitcher hit instead, but this decision must be made before the game begins and listed on the lineup card. Once the game starts, a team cannot change from having the pitcher hit to using a DH."
+    },
+    {
+      "question": "Who holds the record for most home runs in a single postseason, and how many did he hit?",
+      "options": [
+        "A. Barry Bonds - 8 (2002)",
+        "B. Nelson Cruz - 6 (2011)",
+        "C. David Ortiz - 11 (2013)",
+        "D. Carlos Beltrán - 8 (2004)"
+      ],
+      "answer": "C. David Ortiz - 11 (2013)",
+      "explanation": "David Ortiz hit 11 home runs during the 2013 postseason, helping lead the Boston Red Sox to their third World Series championship in 10 years. He hit 2 in the ALDS, 2 in the ALCS, and 7 in the World Series, setting records for most home runs in a single postseason and most in a World Series."
+    },
+    {
+      "question": "According to Rule 5.07(b), what happens if a runner misses home plate and the defensive team appeals after he has entered the dugout?",
+      "options": [
+        "A. The runner is safe because he reached the dugout",
+        "B. The runner is out if the appeal is made properly",
+        "C. The umpire must call time and return the runner to home plate",
+        "D. The run counts but the runner is ejected"
+      ],
+      "answer": "B. The runner is out if the appeal is made properly",
+      "explanation": "Under Rule 5.07(b), a runner who misses home plate can be called out on proper appeal even after entering the dugout, as long as the appeal is made before the next pitch or play. The defense must tag home plate (or the runner if he hasn't left the field) while in possession of the ball and appeal to the umpire."
+    },
+    {
+      "question": "What was the original distance of the pitcher's box when professional baseball began in 1871?",
+      "options": [
+        "A. 45 feet from home plate",
+        "B. 50 feet from home plate",
+        "C. There was no set distance - it varied by field",
+        "D. 60 feet from home plate"
+      ],
+      "answer": "A. 45 feet from home plate",
+      "explanation": "When the National Association began in 1871, pitchers threw from a 6-foot square box located 45 feet from home plate. The distance was increased to 50 feet in 1881, and finally to the current 60 feet 6 inches in 1893 as the game evolved and pitching became more dominant."
+    },
+    {
+      "question": "According to MLB rules, what is the maximum height a pitcher's mound can be built?",
+      "options": [
+        "A. 8 inches above home plate level",
+        "B. 10 inches above home plate level",
+        "C. 12 inches above home plate level",
+        "D. 15 inches above home plate level"
+      ],
+      "answer": "B. 10 inches above home plate level",
+      "explanation": "According to Official Baseball Rule 2.02, the pitcher's plate must be 10 inches above the level of home plate. This height was established in 1969 after being lowered from 15 inches following the dominant pitching performances of 1968, known as the 'Year of the Pitcher.'"
+    },
+    {
+      "question": "Who was the last National League pitcher to win both the MVP and Cy Young Award in the same season?",
+      "options": [
+        "A. Greg Maddux (1995)",
+        "B. Pedro Martinez (1997)",
+        "C. Clayton Kershaw (2014)",
+        "D. Bob Gibson (1968)"
+      ],
+      "answer": "C. Clayton Kershaw (2014)",
+      "explanation": "Clayton Kershaw of the Los Angeles Dodgers won both the National League MVP and Cy Young Award in 2014, going 21-3 with a 1.77 ERA and 239 strikeouts. He was the first NL pitcher to win both awards since Bob Gibson in 1968, highlighting the rarity of pitchers winning MVP in the modern era."
+    },
+    {
+      "question": "Under Rule 6.02(c), what constitutes a 'quick pitch' and what is the penalty?",
+      "options": [
+        "A. Any pitch thrown in under 10 seconds - automatic ball",
+        "B. A pitch thrown before the batter is reasonably set - ball called (balk with runners on)",
+        "C. Three consecutive fastballs - warning issued",
+        "D. A pitch thrown without stepping on the rubber - illegal pitch"
+      ],
+      "answer": "B. A pitch thrown before the batter is reasonably set - ball called (balk with runners on)",
+      "explanation": "Rule 6.02(c) defines a quick pitch as one delivered before the batter is reasonably set in the batter's box. The penalty is a ball being called. If there are runners on base, it's also a balk. The umpire determines whether the batter had reasonable time to get set."
+    },
+    {
+      "question": "What was the significance of the 'Disco Demolition Night' incident in 1979?",
+      "options": [
+        "A. It led to the creation of stadium security protocols",
+        "B. The second game of a doubleheader was forfeited due to field damage",
+        "C. It caused the White Sox to change stadiums",
+        "D. It led to a rule about promotional events"
+      ],
+      "answer": "B. The second game of a doubleheader was forfeited due to field damage",
+      "explanation": "On July 12, 1979, 'Disco Demolition Night' at Comiskey Park resulted in fans storming the field and damaging it after an explosion of disco records between games of a doubleheader. The field was so damaged that the White Sox had to forfeit the second game to the Detroit Tigers, marking one of the most bizarre forfeits in baseball history."
+    }
+  ]
+}

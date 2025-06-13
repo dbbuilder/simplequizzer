@@ -15,7 +15,7 @@
       <div id="setupInstructions" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded hidden">
         <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
         <p class="text-sm leading-relaxed">
-          Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
+          Provide your quiz in JSON format, either by pasting it into the text area, uploading a <code>.json</code> file, or dragging and dropping files. The format should include an array of question objects, each with:
         </p>
         <pre class="bg-white p-3 mt-2 border rounded text-sm overflow-x-auto"><code>{
   "title": "Optional quiz title string",
@@ -41,22 +41,47 @@
           <p class="text-sm text-green-700 mb-2">You can automatically load quizzes using URL parameters:</p>
           <ul class="text-xs text-green-600 space-y-1">
             <li><strong>Remote URL:</strong> <code>?quiz=https://example.com/quiz.json</code></li>
+            <li><strong>Quiz File:</strong> <code>?file=baseball_history</code> (loads ./quizzes/baseball_history.json)</li>
             <li><strong>Base64 Data:</strong> <code>?data=eyJ0aXRsZSI6Ik15IFF1aXoiLCAicXVlc3Rpb25zIjpbXX0=</code></li>
             <li><strong>Hash Fragment:</strong> <code>#{"title":"My Quiz","questions":[...]}</code></li>
           </ul>
         </div>
+        
+        <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded">
+          <h3 class="font-semibold text-yellow-800 mb-2">🎲 Randomization Features</h3>
+          <p class="text-sm text-yellow-700">Questions and answer options are automatically randomized each time you start a quiz to provide a fresh experience!</p>
+        </div>
       </div>
 
       <div id="setupForm" class="mb-6">
-        <h3 class="text-xl font-semibold mb-3">Paste Question JSON</h3>
+        <h3 class="text-xl font-semibold mb-3">Load Quiz Data</h3>
         <div class="mb-3">
           <button class="text-sm text-blue-600 hover:text-blue-800 underline" onclick="toggleInstructions()">Show Setup Instructions</button>
         </div>
-        <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono" placeholder="Paste your JSON quiz data here..."></textarea>
-        <div class="mt-3 flex items-center space-x-4">
-          <input type="file" id="jsonFile" accept="application/json" class="flex-1" />
-          <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded font-medium transition-colors" onclick="loadFromJson()">Start Quiz</button>
+        
+        <!-- Enhanced File Upload Area with Drag & Drop -->
+        <div id="dropZone" class="w-full h-40 p-6 border-2 border-dashed border-gray-300 rounded-lg mb-3 transition-all duration-200 bg-gray-50 hover:bg-gray-100 flex flex-col items-center justify-center text-center cursor-pointer">
+          <div id="dropContent">
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <p class="text-sm text-gray-600 font-medium">Drag & drop JSON files here</p>
+            <p class="text-xs text-gray-500 mt-1">or click to browse files</p>
+          </div>
+          <input type="file" id="jsonFile" accept="application/json,.json" class="hidden" />
         </div>
+        
+        <!-- JSON Text Area -->
+        <div class="mb-3">
+          <label for="jsonSeed" class="block text-sm font-medium text-gray-700 mb-1">Or paste JSON content:</label>
+          <textarea id="jsonSeed" class="w-full h-32 p-3 border border-gray-300 rounded-lg font-mono text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Paste your JSON quiz data here..."></textarea>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded font-medium transition-colors" onclick="loadFromJson()">Start Quiz</button>
+          <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-medium transition-colors" onclick="clearInputs()">Clear All</button>
+        </div>
+        
         <div id="loadingError" class="mt-2 text-red-600 text-sm hidden"></div>
         <div id="autoLoadStatus" class="mt-2 text-blue-600 text-sm hidden"></div>
       </div>
@@ -66,7 +91,7 @@
     <div id="quizView" class="hidden">
       <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded">
         <p class="text-sm text-green-800">
-          <strong>Quiz in Progress:</strong> Navigate between questions using the buttons below. Your answers are automatically saved.
+          <strong>Quiz in Progress:</strong> Navigate between questions using the buttons below. Your answers are automatically saved. Questions and answers have been randomized for this session.
         </p>
       </div>
       
@@ -114,6 +139,7 @@
   <script>
     // Global state management
     let questions = [];
+    let originalQuestions = []; // Store original order for sharing
     let currentQuestionIndex = 0;
     let userAnswers = {};
     let quizStartTime = null;
@@ -124,11 +150,208 @@
         userAnswers = loadUserAnswersFromStorage();
         console.log('Application initialized successfully');
         
+        // Setup drag and drop functionality
+        setupDragAndDrop();
+        
         // Check for auto-load parameters
         checkAutoLoadParameters();
       } catch (error) {
         console.error('Error initializing application:', error);
         userAnswers = {};
+      }
+    }
+
+    // Setup drag and drop functionality for file uploads
+    function setupDragAndDrop() {
+      try {
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('jsonFile');
+        
+        // Make drop zone clickable
+        dropZone.addEventListener('click', () => {
+          fileInput.click();
+        });
+        
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+          dropZone.addEventListener(eventName, preventDefaults, false);
+          document.body.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        // Highlight drop zone when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropZone.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+          dropZone.addEventListener(eventName, unhighlight, false);
+        });
+        
+        // Handle dropped files
+        dropZone.addEventListener('drop', handleDrop, false);
+        
+        // Handle file input change
+        fileInput.addEventListener('change', handleFileInputChange, false);
+        
+        console.log('Drag and drop functionality setup complete');
+      } catch (error) {
+        console.error('Error setting up drag and drop:', error);
+      }
+    }
+
+    // Prevent default drag behaviors
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Highlight drop zone
+    function highlight(e) {
+      const dropZone = document.getElementById('dropZone');
+      dropZone.classList.add('border-blue-500', 'bg-blue-50');
+      dropZone.classList.remove('border-gray-300', 'bg-gray-50');
+    }
+
+    // Remove highlight from drop zone
+    function unhighlight(e) {
+      const dropZone = document.getElementById('dropZone');
+      dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+      dropZone.classList.add('border-gray-300', 'bg-gray-50');
+    }
+
+    // Handle file drop
+    function handleDrop(e) {
+      try {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0) {
+          const file = files[0];
+          console.log('File dropped:', file.name);
+          processFileUpload(file);
+        }
+      } catch (error) {
+        console.error('Error handling file drop:', error);
+        showError('Error processing dropped file: ' + error.message);
+      }
+    }
+
+    // Handle file input change
+    function handleFileInputChange(e) {
+      try {
+        const files = e.target.files;
+        if (files.length > 0) {
+          console.log('File selected:', files[0].name);
+          processFileUpload(files[0]);
+        }
+      } catch (error) {
+        console.error('Error handling file input change:', error);
+        showError('Error processing selected file: ' + error.message);
+      }
+    }
+
+    // Process uploaded file
+    function processFileUpload(file) {
+      try {
+        // Validate file type
+        if (!file.type.includes('json') && !file.name.toLowerCase().endsWith('.json')) {
+          throw new Error('Please select a valid JSON file (.json extension required).');
+        }
+        
+        // Update drop zone to show loading state
+        const dropContent = document.getElementById('dropContent');
+        dropContent.innerHTML = `
+          <div class="text-blue-600">
+            <svg class="animate-spin mx-auto h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-sm font-medium">Loading ${file.name}...</p>
+          </div>
+        `;
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const parsedData = JSON.parse(event.target.result);
+            validateQuizJson(parsedData);
+            processValidatedJson(parsedData);
+            console.log('File processed successfully:', file.name);
+          } catch (error) {
+            console.error('Error parsing uploaded file:', error);
+            showError('Error loading JSON file: ' + error.message);
+            resetDropZone();
+          }
+        };
+        
+        reader.onerror = function() {
+          showError('Error reading the selected file. Please try again.');
+          resetDropZone();
+        };
+        
+        reader.readAsText(file);
+      } catch (error) {
+        console.error('Error processing file upload:', error);
+        showError('Error processing file: ' + error.message);
+        resetDropZone();
+      }
+    }
+
+    // Reset drop zone to original state
+    function resetDropZone() {
+      const dropContent = document.getElementById('dropContent');
+      dropContent.innerHTML = `
+        <svg class="mx-auto h-12 w-12 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+        </svg>
+        <p class="text-sm text-gray-600 font-medium">Drag & drop JSON files here</p>
+        <p class="text-xs text-gray-500 mt-1">or click to browse files</p>
+      `;
+    }
+
+    // Array shuffling utility (Fisher-Yates algorithm)
+    function shuffleArray(array) {
+      const shuffled = [...array]; // Create a copy to avoid mutating original
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
+
+    // Randomize question and answer order
+    function randomizeQuizContent(questionsArray) {
+      try {
+        console.log('Randomizing quiz content...');
+        
+        // Store original order for sharing purposes
+        originalQuestions = [...questionsArray];
+        
+        // Shuffle questions
+        const shuffledQuestions = shuffleArray(questionsArray);
+        
+        // Shuffle answer options for each question while preserving correctness
+        const randomizedQuestions = shuffledQuestions.map((question, index) => {
+          const originalOptions = [...question.options];
+          const shuffledOptions = shuffleArray(originalOptions);
+          
+          // Find the new position of the correct answer
+          const correctAnswerIndex = shuffledOptions.findIndex(option => option === question.answer);
+          
+          return {
+            ...question,
+            id: index + 1, // Reassign sequential IDs after shuffling
+            options: shuffledOptions,
+            answer: question.answer // Keep the correct answer text unchanged
+          };
+        });
+        
+        console.log(`Randomized ${randomizedQuestions.length} questions with shuffled answer options`);
+        return randomizedQuestions;
+      } catch (error) {
+        console.error('Error randomizing quiz content:', error);
+        // Return original if randomization fails
+        return questionsArray.map((q, index) => ({ ...q, id: index + 1 }));
       }
     }
 
@@ -140,6 +363,7 @@
         // Check URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
         const quizUrl = urlParams.get('quiz');
+        const fileName = urlParams.get('file');
         const base64Data = urlParams.get('data');
         
         // Check hash fragment for JSON data
@@ -148,6 +372,9 @@
         if (quizUrl) {
           showAutoLoadStatus('Loading quiz from remote URL...');
           loadQuizFromUrl(quizUrl);
+        } else if (fileName) {
+          showAutoLoadStatus('Loading quiz from local file...');
+          loadQuizFromLocalFile(fileName);
         } else if (base64Data) {
           showAutoLoadStatus('Loading quiz from base64 data...');
           loadQuizFromBase64(base64Data);
@@ -161,6 +388,37 @@
       } catch (error) {
         console.error('Error checking auto-load parameters:', error);
         showAutoLoadError('Error checking auto-load parameters: ' + error.message);
+      }
+    }
+
+    // Load quiz from local file in quizzes directory
+    async function loadQuizFromLocalFile(fileName) {
+      try {
+        // Construct path to quizzes subdirectory
+        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+        const quizPath = `${basePath}quizzes/${fileName}.json`;
+        const fullUrl = window.location.origin + quizPath;
+        
+        console.log('Loading quiz from local file:', fullUrl);
+        showAutoLoadStatus(`Loading quiz from: ${fileName}.json`);
+        
+        const response = await fetch(quizPath);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Could not load ${fileName}.json from quizzes directory. Make sure the file exists at ${quizPath}`);
+        }
+        
+        const jsonData = await response.json();
+        showAutoLoadStatus('Quiz data loaded successfully! Starting quiz...');
+        
+        // Validate and process the JSON
+        validateQuizJson(jsonData);
+        processValidatedJson(jsonData);
+        
+        console.log('Quiz loaded successfully from local file');
+      } catch (error) {
+        console.error('Error loading quiz from local file:', error);
+        showAutoLoadError(`Failed to load quiz file "${fileName}.json": ${error.message}`);
       }
     }
 
@@ -343,6 +601,20 @@
         console.log('Storage state cleared');
       } catch (error) {
         console.error('Error clearing storage state:', error);
+      }
+    }
+
+    // Clear all input fields
+    function clearInputs() {
+      try {
+        document.getElementById('jsonSeed').value = '';
+        document.getElementById('jsonFile').value = '';
+        resetDropZone();
+        hideError();
+        hideAutoLoadStatus();
+        console.log('All inputs cleared');
+      } catch (error) {
+        console.error('Error clearing inputs:', error);
       }
     }
 
@@ -674,15 +946,13 @@
       try {
         // Clear all state
         questions = [];
+        originalQuestions = [];
         currentQuestionIndex = 0;
         userAnswers = {};
         clearStorageState();
         
         // Reset form inputs
-        document.getElementById('jsonSeed').value = '';
-        document.getElementById('jsonFile').value = '';
-        hideError();
-        hideAutoLoadStatus();
+        clearInputs();
         
         // Hide share results
         const shareResults = document.getElementById('shareResults');
@@ -707,13 +977,20 @@
       }
     }
 
-    // Retake current quiz with cleared answers
+    // Retake current quiz with cleared answers and new randomization
     function retakeCurrentQuiz() {
       try {
-        // Clear answers but keep questions
+        if (originalQuestions.length === 0) {
+          throw new Error('No original quiz data available for retake');
+        }
+        
+        // Clear answers and re-randomize questions
         userAnswers = {};
         currentQuestionIndex = 0;
         clearStorageState();
+        
+        // Re-randomize the quiz content for a fresh experience
+        questions = randomizeQuizContent(originalQuestions);
         
         // Hide instructions and return to quiz view
         hideSetupInstructions();
@@ -721,9 +998,10 @@
         document.getElementById('quizView').classList.remove('hidden');
         
         renderCurrentQuestion();
-        console.log('Quiz retake initiated');
+        console.log('Quiz retake initiated with fresh randomization');
       } catch (error) {
         console.error('Error initiating quiz retake:', error);
+        showError('Error starting quiz retake: ' + error.message);
       }
     }
 
@@ -802,35 +1080,14 @@
         // Check if file input has a file
         if (fileInput.files.length > 0) {
           const file = fileInput.files[0];
-          
-          // Validate file type
-          if (file.type !== 'application/json' && !file.name.toLowerCase().endsWith('.json')) {
-            throw new Error('Please select a valid JSON file (.json extension required).');
-          }
-          
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            try {
-              const parsedData = JSON.parse(event.target.result);
-              validateQuizJson(parsedData);
-              processValidatedJson(parsedData);
-            } catch (error) {
-              showError('Error loading JSON file: ' + error.message);
-            }
-          };
-          
-          reader.onerror = function() {
-            showError('Error reading the selected file. Please try again.');
-          };
-          
-          reader.readAsText(file);
+          processFileUpload(file);
         } else if (seedText) {
           // Process text area input
           const parsedData = JSON.parse(seedText);
           validateQuizJson(parsedData);
           processValidatedJson(parsedData);
         } else {
-          throw new Error('Please provide JSON data either by pasting it in the text area or selecting a file.');
+          throw new Error('Please provide JSON data either by pasting it in the text area, uploading a file, or using drag and drop.');
         }
       } catch (error) {
         console.error('Error loading JSON:', error);
@@ -850,14 +1107,16 @@
           document.getElementById('quizTitle').textContent = quizTitle.trim();
         }
         
-        // Process questions with unique IDs
-        questions = questionsArray.map((question, index) => ({
-          id: index + 1,
+        // Process and randomize questions
+        const processedQuestions = questionsArray.map((question, index) => ({
           question: question.question.trim(),
           options: question.options.map(opt => opt.trim()),
           answer: question.answer.trim(),
           explanation: question.explanation ? question.explanation.trim() : null
         }));
+        
+        // Randomize questions and answers
+        questions = randomizeQuizContent(processedQuestions);
         
         // Initialize quiz state
         currentQuestionIndex = 0;
@@ -865,15 +1124,19 @@
         clearStorageState();
         quizStartTime = new Date();
         
+        // Reset drop zone
+        resetDropZone();
+        
         // Hide setup instructions and switch to quiz view
         hideSetupInstructions();
+        hideAutoLoadStatus();
         document.getElementById('setupView').classList.add('hidden');
         document.getElementById('quizView').classList.remove('hidden');
         
         // Render first question
         renderCurrentQuestion();
         
-        console.log(`Quiz initialized successfully with ${questions.length} questions`);
+        console.log(`Quiz initialized successfully with ${questions.length} randomized questions`);
       } catch (error) {
         console.error('Error processing validated JSON:', error);
         showError('Error initializing quiz: ' + error.message);
@@ -942,15 +1205,15 @@
     // Share quiz functionality
     function shareQuiz() {
       try {
-        if (questions.length === 0) {
-          showError('No quiz loaded to share');
+        if (originalQuestions.length === 0) {
+          showError('No original quiz data available to share');
           return;
         }
 
-        // Reconstruct the original quiz JSON format
+        // Reconstruct the original quiz JSON format using original questions
         const quizData = {
           title: document.getElementById('quizTitle').textContent,
-          questions: questions.map(q => ({
+          questions: originalQuestions.map(q => ({
             question: q.question,
             options: q.options,
             answer: q.answer,
@@ -1035,7 +1298,7 @@
     // Initialize application when page loads
     document.addEventListener('DOMContentLoaded', function() {
       initializeApp();
-      console.log('Quiz application loaded successfully');
+      console.log('Enhanced quiz application loaded successfully');
     });
   </script>
 </body>

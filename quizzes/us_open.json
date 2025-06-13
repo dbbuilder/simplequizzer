@@ -1,0 +1,544 @@
+{
+  "title": "US Open Golf History: Champions, Courses, and Classic Moments",
+  "questions": [
+    {
+      "question": "In what year was the first US Open golf championship held?",
+      "options": [
+        "A. 1894",
+        "B. 1895",
+        "C. 1896",
+        "D. 1897"
+      ],
+      "answer": "B. 1895",
+      "explanation": "The first US Open was held in 1895 at Newport Country Club in Rhode Island. It was a 36-hole tournament played in a single day, with Horace Rawlins winning the inaugural championship."
+    },
+    {
+      "question": "Who won the first US Open in 1895?",
+      "options": [
+        "A. Willie Anderson",
+        "B. Horace Rawlins",
+        "C. John McDermott",
+        "D. Francis Ouimet"
+      ],
+      "answer": "B. Horace Rawlins",
+      "explanation": "Horace Rawlins, a 21-year-old English professional, won the first US Open at Newport Country Club. He shot 173 for 36 holes and earned $150 for his victory."
+    },
+    {
+      "question": "Which player holds the record for most US Open victories?",
+      "options": [
+        "A. Jack Nicklaus",
+        "B. Tiger Woods",
+        "C. Willie Anderson, Bobby Jones, Ben Hogan, and Jack Nicklaus (tied)",
+        "D. Arnold Palmer"
+      ],
+      "answer": "C. Willie Anderson, Bobby Jones, Ben Hogan, and Jack Nicklaus (tied)",
+      "explanation": "Four players are tied for the most US Open wins with 4 victories each: Willie Anderson (1901, 1903, 1904, 1905), Bobby Jones (1923, 1926, 1929, 1930), Ben Hogan (1948, 1950, 1951, 1953), and Jack Nicklaus (1962, 1967, 1972, 1980)."
+    },
+    {
+      "question": "At which course was the famous 'Miracle at Merion' performed by Ben Hogan in 1950?",
+      "options": [
+        "A. Oakmont Country Club",
+        "B. Merion Golf Club",
+        "C. Winged Foot Golf Club",
+        "D. Pebble Beach Golf Links"
+      ],
+      "answer": "B. Merion Golf Club",
+      "explanation": "Ben Hogan's 1950 US Open victory at Merion Golf Club is known as the 'Miracle at Merion.' Hogan won just 16 months after a near-fatal car accident, demonstrating incredible courage and determination to return to competitive golf."
+    },
+    {
+      "question": "What is the lowest 72-hole score in US Open history?",
+      "options": [
+        "A. 268",
+        "B. 272",
+        "C. 271",
+        "D. 270"
+      ],
+      "answer": "A. 268",
+      "explanation": "The lowest 72-hole score in US Open history is 268 (-16), achieved by Rory McIlroy at Congressional Country Club in 2011. He won by 8 strokes in a dominant performance."
+    },
+    {
+      "question": "Who was the first American-born player to win the US Open?",
+      "options": [
+        "A. Francis Ouimet",
+        "B. John McDermott",
+        "C. Walter Hagen",
+        "D. Bobby Jones"
+      ],
+      "answer": "B. John McDermott",
+      "explanation": "John McDermott became the first American-born player to win the US Open when he won in 1911 at Chicago Golf Club. He was just 19 years old and repeated as champion in 1912."
+    },
+    {
+      "question": "What year did Tiger Woods win his first US Open?",
+      "options": [
+        "A. 1999",
+        "B. 2000",
+        "C. 2001",
+        "D. 2002"
+      ],
+      "answer": "B. 2000",
+      "explanation": "Tiger Woods won his first US Open in 2000 at Pebble Beach Golf Links. He won by a record 15 strokes, setting multiple records including the largest margin of victory in US Open history."
+    },
+    {
+      "question": "Which course has hosted the US Open the most times?",
+      "options": [
+        "A. Oakmont Country Club",
+        "B. Baltusrol Golf Club",
+        "C. Winged Foot Golf Club",
+        "D. Pebble Beach Golf Links"
+      ],
+      "answer": "A. Oakmont Country Club",
+      "explanation": "Oakmont Country Club in Pennsylvania has hosted the US Open 9 times (1927, 1935, 1953, 1962, 1973, 1983, 1994, 2007, 2016), more than any other course. It's known for its challenging conditions and fast greens."
+    },
+    {
+      "question": "Who won the 1913 US Open at The Country Club in a famous upset?",
+      "options": [
+        "A. Walter Hagen",
+        "B. Francis Ouimet",
+        "C. Gene Sarazen",
+        "D. Bobby Jones"
+      ],
+      "answer": "B. Francis Ouimet",
+      "explanation": "Francis Ouimet, a 20-year-old amateur from Massachusetts, defeated British professionals Harry Vardon and Ted Ray in a playoff at the 1913 US Open. This victory helped popularize golf in America and was later depicted in the Disney film 'The Greatest Game Ever Played.'"
+    },
+    {
+      "question": "What is unique about Bobby Jones' US Open victories?",
+      "options": [
+        "A. He won four in a row",
+        "B. He was an amateur for all his victories",
+        "C. He was the youngest winner",
+        "D. He won on different continents"
+      ],
+      "answer": "B. He was an amateur for all his victories",
+      "explanation": "Bobby Jones won all four of his US Open titles (1923, 1926, 1929, 1930) as an amateur. He never turned professional and remains the only amateur to win 4 US Opens. His 1930 victory was part of his Grand Slam."
+    },
+    {
+      "question": "Which player famously said 'Golf is a game of inches. The most important are the six inches between your ears'?",
+      "options": [
+        "A. Arnold Palmer",
+        "B. Bobby Jones",
+        "C. Jack Nicklaus",
+        "D. Ben Hogan"
+      ],
+      "answer": "B. Bobby Jones",
+      "explanation": "This famous quote is attributed to Bobby Jones, emphasizing the mental aspect of golf. Jones was known for his thoughtful approach to the game and his philosophical insights about golf and competition."
+    },
+    {
+      "question": "What year did the US Open switch from a 36-hole format to 72 holes?",
+      "options": [
+        "A. 1895",
+        "B. 1898",
+        "C. 1904",
+        "D. 1920"
+      ],
+      "answer": "B. 1898",
+      "explanation": "The US Open expanded from 36 holes to 72 holes in 1898, played over four rounds. This change aligned the championship with other major tournaments and provided a more comprehensive test of golf skills."
+    },
+    {
+      "question": "Who holds the record for the most runner-up finishes in the US Open?",
+      "options": [
+        "A. Arnold Palmer",
+        "B. Phil Mickelson",
+        "C. Sam Snead",
+        "D. Tom Watson"
+      ],
+      "answer": "B. Phil Mickelson",
+      "explanation": "Phil Mickelson holds the record with 6 runner-up finishes in the US Open (1999, 2002, 2004, 2006, 2009, 2013). The US Open is the only major championship that Mickelson never won, despite his close calls."
+    },
+    {
+      "question": "Which US Open is famous for Jean van de Velde's collapse on the final hole?",
+      "options": [
+        "A. 1998 at Olympic Club",
+        "B. 1999 at Pinehurst No. 2",
+        "C. 2000 at Pebble Beach",
+        "D. 2001 at Southern Hills"
+      ],
+      "answer": "B. 1999 at Pinehurst No. 2",
+      "explanation": "Jean van de Velde held a 3-shot lead going into the final hole of the 1999 US Open at Pinehurst No. 2, but made a triple bogey, forcing a playoff that he lost to Payne Stewart. It remains one of golf's most famous collapses."
+    },
+    {
+      "question": "What is the name of the trophy awarded to the US Open champion?",
+      "options": [
+        "A. Claret Jug",
+        "B. U.S. Open Championship Trophy",
+        "C. Wanamaker Trophy",
+        "D. Green Jacket"
+      ],
+      "answer": "B. U.S. Open Championship Trophy",
+      "explanation": "The US Open Championship Trophy is the official name of the trophy. The winner keeps the trophy for one year and receives a gold medal. The trophy features a winged figure holding a laurel crown above a globe."
+    },
+    {
+      "question": "Who was the oldest player to win the US Open?",
+      "options": [
+        "A. Julius Boros (43)",
+        "B. Ted Ray (43)",
+        "C. Hale Irwin (45)",
+        "D. Raymond Floyd (43)"
+      ],
+      "answer": "C. Hale Irwin (45)",
+      "explanation": "Hale Irwin won the 1990 US Open at Medinah at age 45, making him the oldest US Open champion. He holed a dramatic 45-foot putt on the 72nd hole to force a playoff, which he won the next day."
+    },
+    {
+      "question": "Which course is known as 'The Monster' and has hosted multiple US Opens?",
+      "options": [
+        "A. Bethpage Black",
+        "B. Oakland Hills Country Club",
+        "C. Winged Foot Golf Club",
+        "D. Congressional Country Club"
+      ],
+      "answer": "B. Oakland Hills Country Club",
+      "explanation": "Oakland Hills Country Club in Michigan is nicknamed 'The Monster,' a name given by Ben Hogan after his 1951 US Open victory there. The course has hosted the US Open in 1924, 1937, 1951, 1961, 1985, and 1996."
+    },
+    {
+      "question": "What was significant about the 2002 US Open at Bethpage Black?",
+      "options": [
+        "A. First US Open at a municipal course",
+        "B. Lowest winning score ever",
+        "C. First playoff in 20 years",
+        "D. Weather delayed for a week"
+      ],
+      "answer": "A. First US Open at a municipal course",
+      "explanation": "The 2002 US Open at Bethpage Black was the first time the championship was held at a municipal (public) golf course. Tiger Woods won the tournament, and the event proved that public courses could successfully host major championships."
+    },
+    {
+      "question": "Who won back-to-back US Opens in 1988 and 1989?",
+      "options": [
+        "A. Curtis Strange",
+        "B. Tom Kite",
+        "C. Scott Simpson",
+        "D. Payne Stewart"
+      ],
+      "answer": "A. Curtis Strange",
+      "explanation": "Curtis Strange won consecutive US Opens in 1988 at The Country Club and 1989 at Oak Hill Country Club. He was the first player to win back-to-back US Opens since Ben Hogan in 1950-1951."
+    },
+    {
+      "question": "Which US Open featured the famous 'Duel in the Sun' between Tom Watson and Jack Nicklaus?",
+      "options": [
+        "A. 1977 at Southern Hills",
+        "B. 1980 at Baltusrol",
+        "C. 1982 at Pebble Beach",
+        "D. This was actually at The Open Championship"
+      ],
+      "answer": "D. This was actually at The Open Championship",
+      "explanation": "The 'Duel in the Sun' was actually the 1977 Open Championship at Turnberry, not a US Open. Watson and Nicklaus battled in the final two rounds, with Watson winning by one stroke. This is often confused with US Open battles between the two legends."
+    },
+    {
+      "question": "What year did the US Open first offer equal prize money for men and women?",
+      "options": [
+        "A. The US Open has always been a men's only tournament",
+        "B. 1973",
+        "C. 1980",
+        "D. 1995"
+      ],
+      "answer": "A. The US Open has always been a men's only tournament",
+      "explanation": "The US Open (golf) is a men's professional golf tournament. The women's equivalent is the U.S. Women's Open, which is a separate tournament. The question may be confusing golf with tennis, where the US Open tennis tournament did establish equal prize money."
+    },
+    {
+      "question": "Who was known as 'The Black Knight' and won the 1965 US Open?",
+      "options": [
+        "A. Arnold Palmer",
+        "B. Gary Player",
+        "C. Lee Trevino",
+        "D. Billy Casper"
+      ],
+      "answer": "B. Gary Player",
+      "explanation": "Gary Player, known as 'The Black Knight' for his all-black attire, won the 1965 US Open at Bellerive Country Club. The South African golfer became one of only five players to complete the career Grand Slam."
+    },
+    {
+      "question": "What is the qualification system for the US Open?",
+      "options": [
+        "A. Invitation only",
+        "B. Open qualifying and exemptions",
+        "C. PGA Tour members only",
+        "D. Amateur players only"
+      ],
+      "answer": "B. Open qualifying and exemptions",
+      "explanation": "The US Open features open qualifying, meaning any professional or amateur with a handicap index of 1.4 or lower can attempt to qualify through local and sectional qualifying rounds. Some players also receive exemptions based on recent performance."
+    },
+    {
+      "question": "Which player famously made a hole-in-one on the 16th hole during the 1989 US Open?",
+      "options": [
+        "A. Tom Kite",
+        "B. Curtis Strange",
+        "C. Doug Sanders",
+        "D. Mark Wiebe"
+      ],
+      "answer": "D. Mark Wiebe",
+      "explanation": "Mark Wiebe made a hole-in-one on the 16th hole at Oak Hill during the final round of the 1989 US Open. It was one of the memorable moments from Curtis Strange's successful title defense."
+    },
+    {
+      "question": "What was unique about Retief Goosen's 2001 US Open victory?",
+      "options": [
+        "A. He won as an amateur",
+        "B. He missed a short putt to win in regulation and won in a playoff",
+        "C. He was the youngest winner ever",
+        "D. He led wire-to-wire"
+      ],
+      "answer": "B. He missed a short putt to win in regulation and won in a playoff",
+      "explanation": "Retief Goosen had a short putt on the 72nd hole at Southern Hills to win the 2001 US Open outright but missed it, forcing an 18-hole playoff with Mark Brooks the next day. Goosen won the playoff by two strokes."
+    },
+    {
+      "question": "Which course will host the 2024 US Open?",
+      "options": [
+        "A. Pinehurst No. 2",
+        "B. Torrey Pines",
+        "C. Winged Foot",
+        "D. The Country Club"
+      ],
+      "answer": "A. Pinehurst No. 2",
+      "explanation": "Pinehurst No. 2 in North Carolina will host the 2024 US Open. This will be the fourth time the course has hosted the championship (1999, 2005, 2014, 2024), making it one of the most frequent US Open venues in recent decades."
+    },
+    {
+      "question": "Who holds the record for lowest single round in US Open history?",
+      "options": [
+        "A. Johnny Miller (63)",
+        "B. Tiger Woods (62)",
+        "C. Jack Nicklaus and Tom Weiskopf (63)",
+        "D. Multiple players tied at 63"
+      ],
+      "answer": "D. Multiple players tied at 63",
+      "explanation": "Multiple players share the record for lowest single round in US Open history with 63: Johnny Miller (1973), Jack Nicklaus and Tom Weiskopf (1980), and Vijay Singh (2003). No player has broken 63 in US Open history."
+    },
+    {
+      "question": "What year did the US Open introduce the two-tier cut system?",
+      "options": [
+        "A. 1957",
+        "B. 1965",
+        "C. 1970",
+        "D. The US Open has never used a cut"
+      ],
+      "answer": "A. 1957",
+      "explanation": "The US Open introduced the 36-hole cut in 1957, reducing the field for the final two rounds. Currently, the top 60 players and ties, plus anyone within 10 shots of the lead, make the cut for the weekend rounds."
+    },
+    {
+      "question": "Which player is famous for saying 'These greens don't hold, so just hit it at the flag' during a US Open?",
+      "options": [
+        "A. Lee Trevino",
+        "B. Ben Hogan",
+        "C. Arnold Palmer",
+        "D. Sam Snead"
+      ],
+      "answer": "A. Lee Trevino",
+      "explanation": "Lee Trevino was known for his colorful commentary and practical approach to golf. He often made humorous and insightful comments about course conditions and strategy during major championships, including observations about firm, fast greens at US Opens."
+    },
+    {
+      "question": "What was special about Payne Stewart's 1999 US Open victory?",
+      "options": [
+        "A. It was his first major",
+        "B. He holed a long putt on the final hole to win by one",
+        "C. He was the oldest winner ever",
+        "D. He came back from 10 shots behind"
+      ],
+      "answer": "B. He holed a long putt on the final hole to win by one",
+      "explanation": "Payne Stewart holed a 15-foot par putt on the 72nd hole at Pinehurst No. 2 to win the 1999 US Open by one stroke over Phil Mickelson. Tragically, it was Stewart's final major victory before his death in a plane crash later that year."
+    },
+    {
+      "question": "Which US Open featured the famous 'Shot Heard Round the World'?",
+      "options": [
+        "A. 1950 at Merion (Ben Hogan)",
+        "B. 1960 at Cherry Hills (Arnold Palmer)",
+        "C. 1973 at Oakmont (Johnny Miller)",
+        "D. 1982 at Pebble Beach (Tom Watson)"
+      ],
+      "answer": "D. 1982 at Pebble Beach (Tom Watson)",
+      "explanation": "Tom Watson's chip shot from the rough on the 17th hole at Pebble Beach in the final round of the 1982 US Open is known as the 'Shot Heard Round the World.' The shot helped him defeat Jack Nicklaus and win his only US Open title."
+    },
+    {
+      "question": "What is the traditional setup philosophy for US Open courses?",
+      "options": [
+        "A. Low scores and birdie contests",
+        "B. Identify the best player through difficult conditions",
+        "C. Favor long hitters only",
+        "D. Emphasize putting above all else"
+      ],
+      "answer": "B. Identify the best player through difficult conditions",
+      "explanation": "The USGA's philosophy for US Open setup is to identify the best player in the field through challenging but fair conditions. This typically includes narrow fairways, thick rough, firm greens, and demanding pin positions to test all aspects of a player's game."
+    },
+    {
+      "question": "Who was the first non-American to win the US Open?",
+      "options": [
+        "A. Harry Vardon",
+        "B. Ted Ray",
+        "C. Tommy Armour",
+        "D. Walter Hagen"
+      ],
+      "answer": "A. Harry Vardon",
+      "explanation": "Harry Vardon of England won the 1900 US Open at Chicago Golf Club, becoming the first non-American winner. Vardon was already a famous golfer, having won The Open Championship (British Open) three times before his US Open victory."
+    },
+    {
+      "question": "What year did the US Open first use starting times (as opposed to starting in groups)?",
+      "options": [
+        "A. 1921",
+        "B. 1935",
+        "C. 1950",
+        "D. 1965"
+      ],
+      "answer": "B. 1935",
+      "explanation": "The US Open began using starting times in 1935, moving away from the older system where all players started at once in groups. This change improved pace of play and course management for the growing field sizes."
+    },
+    {
+      "question": "Which player won the US Open while serving as a club professional?",
+      "options": [
+        "A. Walter Hagen",
+        "B. Gene Sarazen",
+        "C. Orville Moody",
+        "D. Julius Boros"
+      ],
+      "answer": "C. Orville Moody",
+      "explanation": "Orville Moody won the 1969 US Open at Hazeltine while working as a club professional. At age 35, he became one of the most unlikely major champions in golf history, having spent years as a sergeant in the U.S. Army before turning to professional golf."
+    },
+    {
+      "question": "What is the significance of Congressional Country Club's 2011 US Open?",
+      "options": [
+        "A. First US Open in Washington D.C. area",
+        "B. Rory McIlroy set multiple records",
+        "C. Weather caused unprecedented delays",
+        "D. First amateur winner in decades"
+      ],
+      "answer": "B. Rory McIlroy set multiple records",
+      "explanation": "Rory McIlroy's victory at the 2011 US Open at Congressional set multiple records: lowest 72-hole score (268), largest margin of victory (8 strokes), and he became the youngest US Open winner since Bobby Jones in 1923."
+    },
+    {
+      "question": "Which course hosted the centennial US Open in 1995?",
+      "options": [
+        "A. Newport Country Club",
+        "B. Shinnecock Hills",
+        "C. Oakmont Country Club",
+        "D. Baltusrol Golf Club"
+      ],
+      "answer": "B. Shinnecock Hills",
+      "explanation": "Shinnecock Hills Golf Club in New York hosted the centennial US Open in 1995 (the 95th playing, as there were no championships during World War I and II). Corey Pavin won the championship."
+    },
+    {
+      "question": "What equipment innovation was first prominently featured in the 1980 US Open?",
+      "options": [
+        "A. Metal woods",
+        "B. Graphite shafts",
+        "C. Cavity-back irons",
+        "D. Two-piece golf balls"
+      ],
+      "answer": "B. Graphite shafts",
+      "explanation": "The 1980 US Open at Baltusrol was one of the first major championships where graphite shafts became prominently featured. While not widespread yet, some players began experimenting with this lighter technology."
+    },
+    {
+      "question": "Who holds the record for most consecutive US Opens played?",
+      "options": [
+        "A. Jack Nicklaus (44)",
+        "B. Arnold Palmer (31)",
+        "C. Gary Player (46)",
+        "D. Jack Nicklaus (44) is generally cited but records vary"
+      ],
+      "answer": "A. Jack Nicklaus (44)",
+      "explanation": "Jack Nicklaus played in 44 consecutive US Opens from 1957 to 2000, which is generally recognized as the record. His remarkable consistency and longevity in the championship spanned over four decades."
+    },
+    {
+      "question": "What was unique about Lucas Glover's 2009 US Open victory?",
+      "options": [
+        "A. He was the first left-handed winner",
+        "B. He completed the final round on Monday due to weather",
+        "C. He won in a playoff",
+        "D. He was an amateur"
+      ],
+      "answer": "B. He completed the final round on Monday due to weather",
+      "explanation": "Lucas Glover won the 2009 US Open at Bethpage Black, with the final round completing on Monday due to rain delays over the weekend. It was the first Monday finish at a US Open since 1983."
+    },
+    {
+      "question": "Which US Open is famous for the quote 'I'm going to bring this course to its knees'?",
+      "options": [
+        "A. 1951 Oakland Hills (Ben Hogan)",
+        "B. 1960 Cherry Hills (Arnold Palmer)",
+        "C. 1973 Oakmont (Johnny Miller)",
+        "D. 1980 Baltusrol (Jack Nicklaus)"
+      ],
+      "answer": "A. 1951 Oakland Hills (Ben Hogan)",
+      "explanation": "Ben Hogan reportedly said he was going to 'bring this monster to its knees' referring to Oakland Hills during the 1951 US Open. He shot a final-round 67 and called it 'the greatest round I ever played' after his victory."
+    },
+    {
+      "question": "What scoring system does the US Open use?",
+      "options": [
+        "A. Stroke play",
+        "B. Match play",
+        "C. Modified Stableford",
+        "D. Team stroke play"
+      ],
+      "answer": "A. Stroke play",
+      "explanation": "The US Open uses stroke play scoring, where the player with the lowest total score over 72 holes wins. In case of ties, there is an 18-hole playoff on Monday (previously sudden-death playoffs were used)."
+    },
+    {
+      "question": "Who was the youngest player to win the US Open in the modern era?",
+      "options": [
+        "A. Tiger Woods (21)",
+        "B. Rory McIlroy (22)",
+        "C. Jordan Spieth (21)",
+        "D. John McDermott (19)"
+      ],
+      "answer": "B. Rory McIlroy (22)",
+      "explanation": "Rory McIlroy won the 2011 US Open at age 22, making him the youngest winner since Bobby Jones in 1923. His dominant victory by 8 strokes established him as one of golf's rising stars."
+    },
+    {
+      "question": "Which course change was made specifically for the US Open and became a template for other tournaments?",
+      "options": [
+        "A. Adding water hazards",
+        "B. Growing thick rough",
+        "C. Narrowing fairways",
+        "D. Firming up greens"
+      ],
+      "answer": "B. Growing thick rough",
+      "explanation": "The USGA's practice of growing thick, penal rough around fairways for the US Open became a signature feature of the championship. This 'US Open rough' concept has been adopted by many other professional tournaments to increase difficulty."
+    },
+    {
+      "question": "What is the current playoff format for the US Open?",
+      "options": [
+        "A. Sudden death",
+        "B. 18-hole playoff",
+        "C. Two-hole aggregate",
+        "D. Three-hole aggregate"
+      ],
+      "answer": "C. Two-hole aggregate",
+      "explanation": "Starting in 2018, the US Open changed to a two-hole aggregate playoff format. If still tied, it goes to sudden death. This replaced the previous 18-hole Monday playoff format that had been used since 1946."
+    },
+    {
+      "question": "Which US Open venue is known for its island green 17th hole?",
+      "options": [
+        "A. TPC Sawgrass (This is actually the Players Championship)",
+        "B. Pebble Beach Golf Links",
+        "C. Torrey Pines",
+        "D. No US Open venue has an island green"
+      ],
+      "answer": "D. No US Open venue has an island green",
+      "explanation": "No US Open venue features an island green. The famous island green 17th hole is at TPC Sawgrass, which hosts The Players Championship, not the US Open. This is a common misconception about major championship venues."
+    },
+    {
+      "question": "What was significant about Webb Simpson's 2012 US Open victory?",
+      "options": [
+        "A. He was the first player to win wearing shorts",
+        "B. He won during severe weather conditions at Olympic Club",
+        "C. He was the oldest winner ever",
+        "D. He won as a Monday qualifier"
+      ],
+      "answer": "B. He won during severe weather conditions at Olympic Club",
+      "explanation": "Webb Simpson won the 2012 US Open at Olympic Club in San Francisco during challenging weather conditions. The tournament featured thick fog and wind, with Simpson's steady play proving crucial in the difficult conditions."
+    },
+    {
+      "question": "Which player famously lost the US Open by missing a short putt on the final hole?",
+      "options": [
+        "A. Doug Sanders (1970)",
+        "B. Scott Hoch (1989)",
+        "C. This is more associated with other majors",
+        "D. Ed Sneed (1979)"
+      ],
+      "answer": "C. This is more associated with other majors",
+      "explanation": "While there have been short putts missed in US Opens, the most famous short putt misses on final holes to lose majors occurred in other tournaments (Doug Sanders at 1970 Open Championship, Scott Hoch at 1989 Masters). US Open collapses tend to be more complex than single putts."
+    },
+    {
+      "question": "What is the significance of Torrey Pines' 2008 US Open?",
+      "options": [
+        "A. First US Open in California",
+        "B. Tiger Woods won on one leg in a playoff",
+        "C. Lowest winning score ever",
+        "D. First municipal course to host"
+      ],
+      "answer": "B. Tiger Woods won on one leg in a playoff",
+      "explanation": "Tiger Woods won the 2008 US Open at Torrey Pines while playing with a broken leg and torn ACL, defeating Rocco Mediate in a 19-hole playoff. This victory is considered one of the most courageous performances in major championship history."
+    }
+  ]
+}
