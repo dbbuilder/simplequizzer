@@ -37,7 +37,7 @@
         <p class="text-sm mt-2">All fields inside each question are required except for <code>explanation</code>. The <code>title</code> is also optional and will override the quiz title heading.</p>
       </div>
 
-      <div class="mb-6">
+      <div id="setupForm" class="mb-6">
         <h3 class="text-xl font-semibold mb-3">Paste Question JSON</h3>
         <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono" placeholder="Paste your JSON quiz data here..."></textarea>
         <div class="mt-3 flex items-center space-x-4">
@@ -576,7 +576,14 @@
             try {
               const parsedData = JSON.parse(event.target.result);
               validateQuizJson(parsedData);
-              processValidatedJson(parsedData);
+              
+              // Hide setup instructions immediately after successful validation
+              document.getElementById('setupInstructions').classList.add('hidden');
+              
+              // Brief delay to show the instructions disappearing, then start quiz
+              setTimeout(() => {
+                processValidatedJson(parsedData);
+              }, 300);
             } catch (error) {
               showError('Error loading JSON file: ' + error.message);
             }
@@ -591,7 +598,14 @@
           // Process text area input
           const parsedData = JSON.parse(seedText);
           validateQuizJson(parsedData);
-          processValidatedJson(parsedData);
+          
+          // Hide setup instructions immediately after successful validation
+          document.getElementById('setupInstructions').classList.add('hidden');
+          
+          // Brief delay to show the instructions disappearing, then start quiz
+          setTimeout(() => {
+            processValidatedJson(parsedData);
+          }, 300);
         } else {
           throw new Error('Please provide JSON data either by pasting it in the text area or selecting a file.');
         }
@@ -628,10 +642,7 @@
         clearStorageState();
         quizStartTime = new Date();
         
-        // Hide setup instructions but keep the setup view for potential navigation
-        document.getElementById('setupInstructions').classList.add('hidden');
-        
-        // Switch to quiz view
+        // Switch to quiz view (instructions already hidden in loadFromJson)
         document.getElementById('setupView').classList.add('hidden');
         document.getElementById('quizView').classList.remove('hidden');
         
