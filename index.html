@@ -58,9 +58,9 @@
           <div class="text-xl font-medium">Question ${q.id}: ${q.question}</div>
           <div class="space-y-2">
             ${q.options.map(opt => `
-              <label class="block">
-                <input type="radio" name="option" value="${opt}" class="mr-2" ${answer.selected === opt ? 'checked' : ''}>
-                ${opt}
+              <label class="block cursor-pointer">
+                <input type="radio" name="option" value="${opt}" class="mr-2 hidden" ${answer.selected === opt ? 'checked' : ''}>
+                <span class="inline-block p-2 border rounded w-full ${answer.selected === opt ? 'bg-blue-100' : 'hover:bg-gray-100'}">${opt}</span>
               </label>`).join('')}
           </div>
           <div>
@@ -71,8 +71,8 @@
             <label class="block font-medium mb-1">Comfort Level:</label>
             <div id="comfortOptions" class="flex justify-between">
               ${[1,2,3,4,5].map(val => `
-                <label class="flex flex-col items-center">
-                  <input type="radio" name="comfort" value="${val}" ${answer.comfort == val ? 'checked' : ''}>
+                <label class="flex flex-col items-center cursor-pointer">
+                  <input type="radio" name="comfort" value="${val}" class="mb-1" ${answer.comfort == val ? 'checked' : ''}>
                   <span class="text-sm">${['Very Uncomfortable','Uncomfortable','Neutral','Comfortable','Very Comfortable'][val-1]}</span>
                 </label>`).join('')}
             </div>
