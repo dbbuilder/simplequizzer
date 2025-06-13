@@ -10,6 +10,31 @@
   <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
     <h1 id="quizTitle" class="text-3xl font-bold mb-4 text-center">Simple Quizzer: Azure Entra to GCP IAM</h1>
 
+    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
+      <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
+      <p class="text-sm leading-relaxed">
+        Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
+      </p>
+      <pre class="bg-white p-3 mt-2 border rounded text-sm overflow-x-auto"><code>{
+  "title": "Optional quiz title string",
+  "questions": [
+    {
+      "question": "What does IAM stand for?",
+      "options": [
+        "A. Identity and Access Management",
+        "B. Internal Application Mechanism",
+        "C. Internet Access Mode",
+        "D. Infrastructure Assignment Module"
+      ],
+      "answer": "A. Identity and Access Management",
+      "explanation": "IAM stands for Identity and Access Management, a framework for defining and managing access policies."
+    }
+    // Add more question objects...
+  ]
+}</code></pre>
+      <p class="text-sm mt-2">All fields inside each question are required except for <code>explanation</code>. The <code>title</code> is also optional and will override the quiz title heading.</p>
+    </div>
+
     <div id="jsonView" class="mb-6">
       <h3 class="text-xl font-semibold">Paste Question JSON</h3>
       <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono"></textarea>
@@ -148,7 +173,20 @@
       `;
     }
 
-    function loadFromJson() {
+    function validateJson(parsed) {
+  const questions = Array.isArray(parsed) ? parsed : parsed.questions;
+  if (!Array.isArray(questions)) {
+    throw new Error('Expected an array or an object with a "questions" array.');
+  }
+  questions.forEach((q, i) => {
+    if (!q.question || !Array.isArray(q.options) || q.options.length < 2 || !q.answer) {
+      throw new Error(`Invalid question at index ${i + 1}. Must include 'question', 'options[]' (min 2), and 'answer'.`);
+    }
+  });
+  return true;
+}
+
+function loadFromJson() {
       const seedText = document.getElementById('jsonSeed').value;
       const fileInput = document.getElementById('jsonFile');
 
@@ -172,6 +210,8 @@
     }
 
     function processJson(jsonText) {
+  const parsed = JSON.parse(jsonText);
+  validateJson(parsed);
       const parsed = JSON.parse(jsonText);
       const array = Array.isArray(parsed) ? parsed : parsed.questions;
       if (!Array.isArray(array)) {
