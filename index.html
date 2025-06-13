@@ -12,7 +12,7 @@
 
     <!-- Loading/Setup View - Completely separated from quiz navigation -->
     <div id="setupView" class="mb-6">
-      <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
+      <div id="setupInstructions" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
         <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
         <p class="text-sm leading-relaxed">
           Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
@@ -456,7 +456,8 @@
         document.getElementById('jsonFile').value = '';
         hideError();
         
-        // Show setup view, hide others
+        // Show setup view and instructions, hide others
+        document.getElementById('setupInstructions').classList.remove('hidden');
         document.getElementById('setupView').classList.remove('hidden');
         document.getElementById('quizView').classList.add('hidden');
         document.getElementById('reportView').classList.add('hidden');
@@ -626,6 +627,9 @@
         userAnswers = {};
         clearStorageState();
         quizStartTime = new Date();
+        
+        // Hide setup instructions but keep the setup view for potential navigation
+        document.getElementById('setupInstructions').classList.add('hidden');
         
         // Switch to quiz view
         document.getElementById('setupView').classList.add('hidden');
