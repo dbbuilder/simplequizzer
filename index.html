@@ -457,10 +457,17 @@
         hideError();
         
         // Show setup view and instructions, hide others
-        document.getElementById('setupInstructions').classList.remove('hidden');
         document.getElementById('setupView').classList.remove('hidden');
         document.getElementById('quizView').classList.add('hidden');
         document.getElementById('reportView').classList.add('hidden');
+        
+        // Restore setup instructions with proper styling
+        const setupInstructions = document.getElementById('setupInstructions');
+        if (setupInstructions) {
+          setupInstructions.classList.remove('hidden');
+          setupInstructions.style.opacity = '1';
+          setupInstructions.style.transition = '';
+        }
         
         // Reset title
         document.getElementById('quizTitle').textContent = 'Simple Quizzer: Azure Entra to GCP IAM';
@@ -576,14 +583,7 @@
             try {
               const parsedData = JSON.parse(event.target.result);
               validateQuizJson(parsedData);
-              
-              // Hide setup instructions immediately after successful validation
-              document.getElementById('setupInstructions').classList.add('hidden');
-              
-              // Brief delay to show the instructions disappearing, then start quiz
-              setTimeout(() => {
-                processValidatedJson(parsedData);
-              }, 300);
+              processValidatedJson(parsedData);
             } catch (error) {
               showError('Error loading JSON file: ' + error.message);
             }
@@ -598,14 +598,7 @@
           // Process text area input
           const parsedData = JSON.parse(seedText);
           validateQuizJson(parsedData);
-          
-          // Hide setup instructions immediately after successful validation
-          document.getElementById('setupInstructions').classList.add('hidden');
-          
-          // Brief delay to show the instructions disappearing, then start quiz
-          setTimeout(() => {
-            processValidatedJson(parsedData);
-          }, 300);
+          processValidatedJson(parsedData);
         } else {
           throw new Error('Please provide JSON data either by pasting it in the text area or selecting a file.');
         }
@@ -642,14 +635,33 @@
         clearStorageState();
         quizStartTime = new Date();
         
-        // Switch to quiz view (instructions already hidden in loadFromJson)
-        document.getElementById('setupView').classList.add('hidden');
-        document.getElementById('quizView').classList.remove('hidden');
+        // Step 1: Hide setup instructions first with visual feedback
+        const setupInstructions = document.getElementById('setupInstructions');
+        if (setupInstructions) {
+          setupInstructions.style.transition = 'opacity 0.3s ease-out';
+          setupInstructions.style.opacity = '0';
+          
+          setTimeout(() => {
+            setupInstructions.classList.add('hidden');
+            
+            // Step 2: After instructions fade, transition to quiz view
+            setTimeout(() => {
+              document.getElementById('setupView').classList.add('hidden');
+              document.getElementById('quizView').classList.remove('hidden');
+              
+              // Render first question
+              renderCurrentQuestion();
+              
+              console.log(`Quiz initialized successfully with ${questions.length} questions`);
+            }, 100);
+          }, 300);
+        } else {
+          // Fallback if element not found
+          document.getElementById('setupView').classList.add('hidden');
+          document.getElementById('quizView').classList.remove('hidden');
+          renderCurrentQuestion();
+        }
         
-        // Render first question
-        renderCurrentQuestion();
-        
-        console.log(`Quiz initialized successfully with ${questions.length} questions`);
       } catch (error) {
         console.error('Error processing validated JSON:', error);
         showError('Error initializing quiz: ' + error.message);
