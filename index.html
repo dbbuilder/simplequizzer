@@ -10,12 +10,14 @@
   <div class="max-w-4xl mx-auto bg-white rounded-lg shadow p-6">
     <h1 id="quizTitle" class="text-3xl font-bold mb-4 text-center">Simple Quizzer: Azure Entra to GCP IAM</h1>
 
-    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
-      <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
-      <p class="text-sm leading-relaxed">
-        Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
-      </p>
-      <pre class="bg-white p-3 mt-2 border rounded text-sm overflow-x-auto"><code>{
+    <!-- Loading/Setup View - Completely separated from quiz navigation -->
+    <div id="setupView" class="mb-6">
+      <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
+        <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
+        <p class="text-sm leading-relaxed">
+          Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
+        </p>
+        <pre class="bg-white p-3 mt-2 border rounded text-sm overflow-x-auto"><code>{
   "title": "Optional quiz title string",
   "questions": [
     {
@@ -32,207 +34,643 @@
     // Add more question objects...
   ]
 }</code></pre>
-      <p class="text-sm mt-2">All fields inside each question are required except for <code>explanation</code>. The <code>title</code> is also optional and will override the quiz title heading.</p>
-    </div>
-
-    <div id="jsonView" class="mb-6">
-      <h3 class="text-xl font-semibold">Paste Question JSON</h3>
-      <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono"></textarea>
-      <input type="file" id="jsonFile" accept="application/json" class="mt-2" />
-      <button class="mt-2 bg-green-500 text-white px-4 py-2 rounded" onclick="loadFromJson()">Start Quiz</button>
-    </div>
-
-    <div id="quizView" class="hidden">
-      <div id="quiz" class="mb-6"></div>
-      <div class="flex justify-between items-center mb-6">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" onclick="prevQuestion()" id="prevBtn">Previous</button>
-        <span id="progress" class="text-sm text-gray-600"></span>
-        <button class="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50" onclick="nextQuestion()" id="nextBtn">Next</button>
+        <p class="text-sm mt-2">All fields inside each question are required except for <code>explanation</code>. The <code>title</code> is also optional and will override the quiz title heading.</p>
       </div>
-      <button class="w-full bg-purple-600 text-white px-4 py-3 rounded text-lg" onclick="showReportView()">Finish Quiz</button>
+
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-3">Paste Question JSON</h3>
+        <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono" placeholder="Paste your JSON quiz data here..."></textarea>
+        <div class="mt-3 flex items-center space-x-4">
+          <input type="file" id="jsonFile" accept="application/json" class="flex-1" />
+          <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded font-medium transition-colors" onclick="loadFromJson()">Start Quiz</button>
+        </div>
+        <div id="loadingError" class="mt-2 text-red-600 text-sm hidden"></div>
+      </div>
     </div>
 
+    <!-- Quiz View - Separated navigation that cannot return to setup -->
+    <div id="quizView" class="hidden">
+      <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded">
+        <p class="text-sm text-green-800">
+          <strong>Quiz in Progress:</strong> Navigate between questions using the buttons below. Your answers are automatically saved.
+        </p>
+      </div>
+      
+      <div id="quiz" class="mb-6"></div>
+      
+      <div class="flex justify-between items-center mb-6">
+        <button class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-4 py-2 rounded transition-colors" onclick="navigateToQuestion('prev')" id="prevBtn">← Previous</button>
+        <span id="progress" class="text-sm text-gray-600 font-medium"></span>
+        <button class="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-4 py-2 rounded transition-colors" onclick="navigateToQuestion('next')" id="nextBtn">Next →</button>
+      </div>
+      
+      <div class="border-t pt-4">
+        <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded text-lg font-medium transition-colors" onclick="showReportView()">Finish Quiz & View Results</button>
+      </div>
+    </div>
+
+    <!-- Report View -->
     <div id="reportView" class="hidden">
       <div id="report" class="mt-8"></div>
-      <button class="mt-6 bg-blue-600 text-white px-4 py-2 rounded" onclick="location.reload()">Start Over</button>
+      <div class="mt-6 flex space-x-4">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-medium transition-colors" onclick="resetToSetup()">Start New Quiz</button>
+        <button class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded font-medium transition-colors" onclick="retakeCurrentQuiz()">Retake This Quiz</button>
+      </div>
     </div>
   </div>
 
   <script>
+    // Global state management
     let questions = [];
-    let current = 0;
-    const userAnswers = loadState();
+    let currentQuestionIndex = 0;
+    let userAnswers = {};
+    let quizStartTime = null;
 
-    function saveState() {
-      localStorage.setItem('quizState', JSON.stringify(userAnswers));
-    }
-
-    function loadState() {
-      const saved = localStorage.getItem('quizState');
-      return saved ? JSON.parse(saved) : {};
-    }
-
-    function renderQuestion() {
-      const q = questions[current];
-      const answer = userAnswers[q.id] || {};
-      const quiz = document.getElementById('quiz');
-      quiz.innerHTML = `
-        <div class="space-y-4">
-          <div class="text-xl font-medium">Question ${q.id}: ${q.question}</div>
-          <div class="space-y-2">
-            ${q.options.map(opt => {
-              const isSelected = answer.selected === opt;
-              return `
-                <label class="block cursor-pointer">
-                  <input type="radio" name="option" value="${opt}" class="sr-only" ${isSelected ? 'checked' : ''}>
-                  <span onclick="document.querySelectorAll('input[name=option]').forEach(r => r.checked = false); this.previousElementSibling.checked = true; saveAnswer(); renderQuestion();" class="inline-block p-2 border rounded w-full ${isSelected ? 'bg-blue-100 ring-2 ring-blue-500' : 'hover:bg-gray-100'}">
-                    ${opt}
-                  </span>
-                </label>`;
-            }).join('')}
-          </div>
-          <div>
-            <label class="block font-medium">Notes:</label>
-            <textarea id="notes" class="w-full p-2 border rounded">${answer.notes || ''}</textarea>
-          </div>
-          <div>
-            <label class="block font-medium mb-1">Comfort Level:</label>
-            <div id="comfortOptions" class="flex justify-between">
-              ${[1,2,3,4,5].map(val => `
-                <label class="flex flex-col items-center cursor-pointer">
-                  <input type="radio" name="comfort" value="${val}" class="mb-1" ${answer.comfort == val ? 'checked' : ''}>
-                  <span class="text-sm">${['Very Uncomfortable','Uncomfortable','Neutral','Comfortable','Very Comfortable'][val-1]}</span>
-                </label>`).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-
-      document.querySelectorAll('input[name=option]').forEach(el => el.addEventListener('change', saveAnswer));
-      document.querySelectorAll('input[name=comfort]').forEach(el => el.addEventListener('change', saveAnswer));
-      document.getElementById('notes').addEventListener('input', saveAnswer);
-
-      document.getElementById('progress').innerText = `Question ${current + 1} of ${questions.length}`;
-      document.getElementById('prevBtn').disabled = current === 0;
-      document.getElementById('nextBtn').disabled = current === questions.length - 1;
-    }
-
-    function saveAnswer() {
-      const selected = document.querySelector('input[name=option]:checked');
-      const notes = document.getElementById('notes').value;
-      const comfort = document.querySelector('input[name=comfort]:checked')?.value;
-      userAnswers[questions[current].id] = {
-        selected: selected ? selected.value : null,
-        notes,
-        comfort
-      };
-      saveState();
-    }
-
-    function prevQuestion() {
-      if (current > 0) {
-        current--;
-        renderQuestion();
+    // Initialize application state
+    function initializeApp() {
+      try {
+        userAnswers = loadUserAnswersFromStorage();
+        console.log('Application initialized successfully');
+      } catch (error) {
+        console.error('Error initializing application:', error);
+        userAnswers = {};
       }
     }
 
-    function nextQuestion() {
-      if (current < questions.length - 1) {
-        current++;
-        renderQuestion();
-      }
-    }
-
-    function showReportView() {
-      document.getElementById('quizView').classList.add('hidden');
-      document.getElementById('reportView').classList.remove('hidden');
-      generateReport();
-    }
-
-    function generateReport() {
-      let score = 0;
-      const lines = questions.map(q => {
-        const ans = userAnswers[q.id];
-        const correct = ans && ans.selected === q.answer;
-        if (correct) score++;
-        return `
-          <li class="mb-3">
-            <div class="font-semibold ${correct ? 'text-green-700' : 'text-red-600'}">
-              Q${q.id}: ${correct ? 'Correct' : 'Incorrect'} - Selected: ${ans?.selected || 'None'}, Expected: ${q.answer}
-            </div>
-            <div class="ml-4 text-sm text-gray-800">
-              Comfort: ${ans?.comfort || '-'}, Notes: ${ans?.notes || '-'}
-              ${q.explanation ? `<div class="mt-1 italic text-gray-600">Explanation: ${q.explanation}</div>` : ''}
-            </div>
-          </li>`;
-      }).join('');
-
-      document.getElementById('report').innerHTML = `
-        <div class="bg-gray-50 p-4 rounded border">
-          <h2 class="text-2xl font-bold mb-2">Quiz Report</h2>
-          <ul class="list-disc pl-5 space-y-1">${lines}</ul>
-          <div class="mt-4 text-lg font-semibold">Total Score: ${score} / ${questions.length}</div>
-        </div>
-      `;
-    }
-
-    function validateJson(parsed) {
-      const questions = Array.isArray(parsed) ? parsed : parsed.questions;
-      if (!Array.isArray(questions)) {
-        throw new Error('Expected an array or an object with a "questions" array.');
-      }
-      questions.forEach((q, i) => {
-        if (!q.question || !Array.isArray(q.options) || q.options.length < 2 || !q.answer) {
-          throw new Error(`Invalid question at index ${i + 1}. Must include 'question', 'options[]' (min 2), and 'answer'.`);
-        }
-      });
-      return true;
-    }
-
-    function loadFromJson() {
-      const seedText = document.getElementById('jsonSeed').value;
-      const fileInput = document.getElementById('jsonFile');
-
-      if (fileInput.files.length > 0) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          try {
-            const parsed = JSON.parse(e.target.result);
-            validateJson(parsed);
-            processJson(parsed);
-          } catch (err) {
-            alert('Error loading JSON file: ' + err.message);
-          }
+    // Local storage management for persistent state
+    function saveUserAnswersToStorage() {
+      try {
+        const stateData = {
+          answers: userAnswers,
+          timestamp: new Date().toISOString(),
+          currentIndex: currentQuestionIndex
         };
-        reader.readAsText(fileInput.files[0]);
-      } else {
-        try {
-          const parsed = JSON.parse(seedText);
-          validateJson(parsed);
-          processJson(parsed);
-        } catch (err) {
-          alert('Error parsing JSON: ' + err.message);
-        }
+        localStorage.setItem('quizState', JSON.stringify(stateData));
+        console.log('User answers saved to storage');
+      } catch (error) {
+        console.error('Error saving state to storage:', error);
       }
     }
 
-    function processJson(parsed) {
-      const array = Array.isArray(parsed) ? parsed : parsed.questions;
-      if (parsed.title) {
-        document.getElementById('quizTitle').innerText = parsed.title;
+    function loadUserAnswersFromStorage() {
+      try {
+        const saved = localStorage.getItem('quizState');
+        if (saved) {
+          const stateData = JSON.parse(saved);
+          console.log('User answers loaded from storage');
+          return stateData.answers || {};
+        }
+        return {};
+      } catch (error) {
+        console.error('Error loading state from storage:', error);
+        return {};
       }
-      questions = array.map((q, idx) => ({
-        id: idx + 1,
-        question: q.question,
-        options: q.options,
-        answer: q.answer,
-        explanation: q.explanation || null
-      }));
-      current = 0;
-      document.getElementById('jsonView').classList.add('hidden');
-      document.getElementById('quizView').classList.remove('hidden');
-      renderQuestion();
     }
+
+    function clearStorageState() {
+      try {
+        localStorage.removeItem('quizState');
+        console.log('Storage state cleared');
+      } catch (error) {
+        console.error('Error clearing storage state:', error);
+      }
+    }
+
+    // Question rendering with proper answer isolation
+    function renderCurrentQuestion() {
+      try {
+        const question = questions[currentQuestionIndex];
+        if (!question) {
+          throw new Error(`Question at index ${currentQuestionIndex} not found`);
+        }
+
+        // Retrieve saved answer for current question only
+        const savedAnswer = userAnswers[question.id] || {
+          selected: null,
+          notes: '',
+          comfort: null
+        };
+
+        const quizContainer = document.getElementById('quiz');
+        
+        // Generate HTML for current question with isolated answer options
+        quizContainer.innerHTML = `
+          <div class="space-y-6">
+            <div class="bg-gray-50 p-4 rounded border">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Question ${question.id}</h3>
+              <div class="text-xl font-medium text-gray-900">${escapeHtml(question.question)}</div>
+            </div>
+            
+            <div class="space-y-3">
+              <h4 class="font-medium text-gray-700">Select your answer:</h4>
+              ${question.options.map((option, optionIndex) => {
+                const isSelected = savedAnswer.selected === option;
+                const optionId = `option_q${question.id}_${optionIndex}`;
+                return `
+                  <label class="block cursor-pointer" for="${optionId}">
+                    <input 
+                      type="radio" 
+                      id="${optionId}"
+                      name="question_${question.id}_options" 
+                      value="${escapeHtml(option)}" 
+                      class="sr-only" 
+                      ${isSelected ? 'checked' : ''}
+                      onchange="handleAnswerSelection(this)"
+                    >
+                    <span class="inline-block p-3 border rounded w-full transition-all duration-200 ${isSelected ? 'bg-blue-100 border-blue-500 ring-2 ring-blue-200' : 'hover:bg-gray-50 border-gray-300'}">
+                      ${escapeHtml(option)}
+                    </span>
+                  </label>`;
+              }).join('')}
+            </div>
+            
+            <div class="space-y-3">
+              <label class="block">
+                <span class="font-medium text-gray-700">Personal Notes:</span>
+                <textarea 
+                  id="questionNotes" 
+                  class="w-full mt-1 p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  rows="3"
+                  placeholder="Add any notes or thoughts about this question..."
+                  oninput="handleNotesInput(this)"
+                >${escapeHtml(savedAnswer.notes || '')}</textarea>
+              </label>
+            </div>
+            
+            <div class="space-y-3">
+              <span class="block font-medium text-gray-700">Comfort Level with this topic:</span>
+              <div id="comfortOptions" class="flex justify-between space-x-2">
+                ${[1,2,3,4,5].map(comfortValue => {
+                  const comfortLabels = ['Very Uncomfortable', 'Uncomfortable', 'Neutral', 'Comfortable', 'Very Comfortable'];
+                  const isSelected = savedAnswer.comfort == comfortValue;
+                  const comfortId = `comfort_q${question.id}_${comfortValue}`;
+                  return `
+                    <label class="flex flex-col items-center cursor-pointer flex-1" for="${comfortId}">
+                      <input 
+                        type="radio" 
+                        id="${comfortId}"
+                        name="question_${question.id}_comfort" 
+                        value="${comfortValue}" 
+                        class="mb-2" 
+                        ${isSelected ? 'checked' : ''}
+                        onchange="handleComfortSelection(this)"
+                      >
+                      <span class="text-xs text-center px-1">${comfortLabels[comfortValue-1]}</span>
+                    </label>`;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Update navigation and progress indicators
+        updateNavigationState();
+        updateProgressIndicator();
+        
+        console.log(`Rendered question ${question.id} (index ${currentQuestionIndex})`);
+      } catch (error) {
+        console.error('Error rendering question:', error);
+        showError('Failed to render question. Please try refreshing the page.');
+      }
+    }
+
+    // Handle answer selection with proper question isolation
+    function handleAnswerSelection(radioInput) {
+      try {
+        const currentQuestion = questions[currentQuestionIndex];
+        if (!currentQuestion) {
+          throw new Error('No current question available');
+        }
+
+        // Initialize answer object for current question if it doesn't exist
+        if (!userAnswers[currentQuestion.id]) {
+          userAnswers[currentQuestion.id] = { selected: null, notes: '', comfort: null };
+        }
+
+        // Update selected answer for current question only
+        userAnswers[currentQuestion.id].selected = radioInput.value;
+        
+        // Save state and re-render to update visual feedback
+        saveUserAnswersToStorage();
+        console.log(`Answer selected for question ${currentQuestion.id}: ${radioInput.value}`);
+        
+        // Re-render to update styling without losing focus
+        setTimeout(() => renderCurrentQuestion(), 100);
+      } catch (error) {
+        console.error('Error handling answer selection:', error);
+      }
+    }
+
+    // Handle notes input with question isolation
+    function handleNotesInput(textareaElement) {
+      try {
+        const currentQuestion = questions[currentQuestionIndex];
+        if (!currentQuestion) return;
+
+        if (!userAnswers[currentQuestion.id]) {
+          userAnswers[currentQuestion.id] = { selected: null, notes: '', comfort: null };
+        }
+
+        userAnswers[currentQuestion.id].notes = textareaElement.value;
+        saveUserAnswersToStorage();
+        console.log(`Notes updated for question ${currentQuestion.id}`);
+      } catch (error) {
+        console.error('Error handling notes input:', error);
+      }
+    }
+
+    // Handle comfort level selection with question isolation
+    function handleComfortSelection(radioInput) {
+      try {
+        const currentQuestion = questions[currentQuestionIndex];
+        if (!currentQuestion) return;
+
+        if (!userAnswers[currentQuestion.id]) {
+          userAnswers[currentQuestion.id] = { selected: null, notes: '', comfort: null };
+        }
+
+        userAnswers[currentQuestion.id].comfort = parseInt(radioInput.value);
+        saveUserAnswersToStorage();
+        console.log(`Comfort level set for question ${currentQuestion.id}: ${radioInput.value}`);
+      } catch (error) {
+        console.error('Error handling comfort selection:', error);
+      }
+    }
+
+    // Navigation between questions with proper bounds checking
+    function navigateToQuestion(direction) {
+      try {
+        const previousIndex = currentQuestionIndex;
+        
+        if (direction === 'prev' && currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+        } else if (direction === 'next' && currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++;
+        } else {
+          console.log(`Navigation blocked: already at ${direction === 'prev' ? 'first' : 'last'} question`);
+          return;
+        }
+
+        console.log(`Navigated from question ${previousIndex + 1} to question ${currentQuestionIndex + 1}`);
+        renderCurrentQuestion();
+      } catch (error) {
+        console.error('Error navigating between questions:', error);
+        // Revert to previous index on error
+        currentQuestionIndex = previousIndex;
+      }
+    }
+
+    // Update navigation button states
+    function updateNavigationState() {
+      try {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+        
+        // Add visual feedback for disabled state
+        if (prevBtn.disabled) {
+          prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        if (nextBtn.disabled) {
+          nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      } catch (error) {
+        console.error('Error updating navigation state:', error);
+      }
+    }
+
+    // Update progress indicator
+    function updateProgressIndicator() {
+      try {
+        const progressElement = document.getElementById('progress');
+        if (progressElement) {
+          const current = currentQuestionIndex + 1;
+          const total = questions.length;
+          const percentage = Math.round((current / total) * 100);
+          progressElement.textContent = `Question ${current} of ${total} (${percentage}% complete)`;
+        }
+      } catch (error) {
+        console.error('Error updating progress indicator:', error);
+      }
+    }
+
+    // Show report view with detailed results
+    function showReportView() {
+      try {
+        document.getElementById('quizView').classList.add('hidden');
+        document.getElementById('reportView').classList.remove('hidden');
+        generateDetailedReport();
+        console.log('Report view displayed');
+      } catch (error) {
+        console.error('Error showing report view:', error);
+      }
+    }
+
+    // Generate comprehensive quiz report
+    function generateDetailedReport() {
+      try {
+        let correctAnswers = 0;
+        const totalQuestions = questions.length;
+        let answeredQuestions = 0;
+
+        const questionResults = questions.map(question => {
+          const userAnswer = userAnswers[question.id];
+          const hasAnswer = userAnswer && userAnswer.selected;
+          const isCorrect = hasAnswer && userAnswer.selected === question.answer;
+          
+          if (hasAnswer) answeredQuestions++;
+          if (isCorrect) correctAnswers++;
+
+          const comfortLabels = ['', 'Very Uncomfortable', 'Uncomfortable', 'Neutral', 'Comfortable', 'Very Comfortable'];
+
+          return `
+            <li class="mb-4 p-4 border rounded ${isCorrect ? 'bg-green-50 border-green-200' : hasAnswer ? 'bg-red-50 border-red-200' : 'bg-gray-50 border-gray-200'}">
+              <div class="font-semibold ${isCorrect ? 'text-green-700' : hasAnswer ? 'text-red-600' : 'text-gray-600'} mb-2">
+                Question ${question.id}: ${isCorrect ? '✓ Correct' : hasAnswer ? '✗ Incorrect' : '⚪ Not Answered'}
+              </div>
+              <div class="text-sm text-gray-700 mb-2">
+                <strong>Question:</strong> ${escapeHtml(question.question)}
+              </div>
+              <div class="ml-4 text-sm space-y-1">
+                <div><strong>Your Answer:</strong> <span class="${isCorrect ? 'text-green-600' : 'text-red-600'}">${escapeHtml(userAnswer?.selected || 'None')}</span></div>
+                <div><strong>Correct Answer:</strong> <span class="text-green-600">${escapeHtml(question.answer)}</span></div>
+                <div><strong>Comfort Level:</strong> ${userAnswer?.comfort ? comfortLabels[userAnswer.comfort] : 'Not rated'}</div>
+                ${userAnswer?.notes ? `<div><strong>Your Notes:</strong> ${escapeHtml(userAnswer.notes)}</div>` : ''}
+                ${question.explanation ? `<div class="mt-2 p-2 bg-blue-50 rounded"><strong>Explanation:</strong> ${escapeHtml(question.explanation)}</div>` : ''}
+              </div>
+            </li>`;
+        }).join('');
+
+        const scorePercentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+        const completionPercentage = totalQuestions > 0 ? Math.round((answeredQuestions / totalQuestions) * 100) : 0;
+
+        document.getElementById('report').innerHTML = `
+          <div class="bg-gray-50 p-6 rounded border">
+            <h2 class="text-2xl font-bold mb-4 text-center">Quiz Results</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div class="bg-white p-4 rounded border text-center">
+                <div class="text-2xl font-bold text-blue-600">${correctAnswers}/${totalQuestions}</div>
+                <div class="text-sm text-gray-600">Correct Answers</div>
+              </div>
+              <div class="bg-white p-4 rounded border text-center">
+                <div class="text-2xl font-bold text-green-600">${scorePercentage}%</div>
+                <div class="text-sm text-gray-600">Score</div>
+              </div>
+              <div class="bg-white p-4 rounded border text-center">
+                <div class="text-2xl font-bold text-purple-600">${completionPercentage}%</div>
+                <div class="text-sm text-gray-600">Completion</div>
+              </div>
+            </div>
+            
+            <h3 class="text-lg font-semibold mb-3">Detailed Results:</h3>
+            <ul class="space-y-3">${questionResults}</ul>
+          </div>
+        `;
+
+        console.log(`Report generated: ${correctAnswers}/${totalQuestions} correct (${scorePercentage}%)`);
+      } catch (error) {
+        console.error('Error generating report:', error);
+        showError('Failed to generate quiz report');
+      }
+    }
+
+    // Reset application to setup view
+    function resetToSetup() {
+      try {
+        // Clear all state
+        questions = [];
+        currentQuestionIndex = 0;
+        userAnswers = {};
+        clearStorageState();
+        
+        // Reset form inputs
+        document.getElementById('jsonSeed').value = '';
+        document.getElementById('jsonFile').value = '';
+        hideError();
+        
+        // Show setup view, hide others
+        document.getElementById('setupView').classList.remove('hidden');
+        document.getElementById('quizView').classList.add('hidden');
+        document.getElementById('reportView').classList.add('hidden');
+        
+        // Reset title
+        document.getElementById('quizTitle').textContent = 'Simple Quizzer: Azure Entra to GCP IAM';
+        
+        console.log('Application reset to setup view');
+      } catch (error) {
+        console.error('Error resetting to setup:', error);
+      }
+    }
+
+    // Retake current quiz with cleared answers
+    function retakeCurrentQuiz() {
+      try {
+        // Clear answers but keep questions
+        userAnswers = {};
+        currentQuestionIndex = 0;
+        clearStorageState();
+        
+        // Return to quiz view
+        document.getElementById('reportView').classList.add('hidden');
+        document.getElementById('quizView').classList.remove('hidden');
+        
+        renderCurrentQuestion();
+        console.log('Quiz retake initiated');
+      } catch (error) {
+        console.error('Error initiating quiz retake:', error);
+      }
+    }
+
+    // JSON validation with comprehensive error checking
+    function validateQuizJson(parsedData) {
+      try {
+        // Handle both array format and object with questions property
+        const questionsArray = Array.isArray(parsedData) ? parsedData : parsedData.questions;
+        
+        if (!Array.isArray(questionsArray)) {
+          throw new Error('JSON must contain an array of questions, or an object with a "questions" array property.');
+        }
+        
+        if (questionsArray.length === 0) {
+          throw new Error('Questions array cannot be empty.');
+        }
+        
+        // Validate each question thoroughly
+        questionsArray.forEach((question, index) => {
+          const questionNumber = index + 1;
+          
+          if (!question || typeof question !== 'object') {
+            throw new Error(`Question ${questionNumber} must be an object.`);
+          }
+          
+          if (!question.question || typeof question.question !== 'string' || question.question.trim() === '') {
+            throw new Error(`Question ${questionNumber} must have a non-empty "question" string property.`);
+          }
+          
+          if (!Array.isArray(question.options)) {
+            throw new Error(`Question ${questionNumber} must have an "options" array property.`);
+          }
+          
+          if (question.options.length < 2) {
+            throw new Error(`Question ${questionNumber} must have at least 2 answer options.`);
+          }
+          
+          // Validate each option
+          question.options.forEach((option, optionIndex) => {
+            if (!option || typeof option !== 'string' || option.trim() === '') {
+              throw new Error(`Question ${questionNumber}, option ${optionIndex + 1} must be a non-empty string.`);
+            }
+          });
+          
+          if (!question.answer || typeof question.answer !== 'string' || question.answer.trim() === '') {
+            throw new Error(`Question ${questionNumber} must have a non-empty "answer" string property.`);
+          }
+          
+          // Verify answer exists in options
+          if (!question.options.includes(question.answer)) {
+            throw new Error(`Question ${questionNumber}: the "answer" value "${question.answer}" must match exactly one of the provided options.`);
+          }
+          
+          // Validate explanation if present
+          if (question.explanation !== undefined && (typeof question.explanation !== 'string')) {
+            throw new Error(`Question ${questionNumber}: "explanation" must be a string if provided.`);
+          }
+        });
+        
+        console.log(`JSON validation successful: ${questionsArray.length} questions validated`);
+        return true;
+      } catch (error) {
+        console.error('JSON validation failed:', error);
+        throw error;
+      }
+    }
+
+    // Load quiz from JSON input with comprehensive error handling
+    function loadFromJson() {
+      try {
+        hideError();
+        
+        const seedText = document.getElementById('jsonSeed').value.trim();
+        const fileInput = document.getElementById('jsonFile');
+        
+        // Check if file input has a file
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          
+          // Validate file type
+          if (file.type !== 'application/json' && !file.name.toLowerCase().endsWith('.json')) {
+            throw new Error('Please select a valid JSON file (.json extension required).');
+          }
+          
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            try {
+              const parsedData = JSON.parse(event.target.result);
+              validateQuizJson(parsedData);
+              processValidatedJson(parsedData);
+            } catch (error) {
+              showError('Error loading JSON file: ' + error.message);
+            }
+          };
+          
+          reader.onerror = function() {
+            showError('Error reading the selected file. Please try again.');
+          };
+          
+          reader.readAsText(file);
+        } else if (seedText) {
+          // Process text area input
+          const parsedData = JSON.parse(seedText);
+          validateQuizJson(parsedData);
+          processValidatedJson(parsedData);
+        } else {
+          throw new Error('Please provide JSON data either by pasting it in the text area or selecting a file.');
+        }
+      } catch (error) {
+        console.error('Error loading JSON:', error);
+        showError('Error parsing JSON: ' + error.message);
+      }
+    }
+
+    // Process validated JSON and initialize quiz
+    function processValidatedJson(parsedData) {
+      try {
+        // Extract questions array and optional title
+        const questionsArray = Array.isArray(parsedData) ? parsedData : parsedData.questions;
+        const quizTitle = parsedData.title;
+        
+        // Update title if provided
+        if (quizTitle && typeof quizTitle === 'string' && quizTitle.trim()) {
+          document.getElementById('quizTitle').textContent = quizTitle.trim();
+        }
+        
+        // Process questions with unique IDs
+        questions = questionsArray.map((question, index) => ({
+          id: index + 1,
+          question: question.question.trim(),
+          options: question.options.map(opt => opt.trim()),
+          answer: question.answer.trim(),
+          explanation: question.explanation ? question.explanation.trim() : null
+        }));
+        
+        // Initialize quiz state
+        currentQuestionIndex = 0;
+        userAnswers = {};
+        clearStorageState();
+        quizStartTime = new Date();
+        
+        // Switch to quiz view
+        document.getElementById('setupView').classList.add('hidden');
+        document.getElementById('quizView').classList.remove('hidden');
+        
+        // Render first question
+        renderCurrentQuestion();
+        
+        console.log(`Quiz initialized successfully with ${questions.length} questions`);
+      } catch (error) {
+        console.error('Error processing validated JSON:', error);
+        showError('Error initializing quiz: ' + error.message);
+      }
+    }
+
+    // Error display utilities
+    function showError(message) {
+      const errorElement = document.getElementById('loadingError');
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+      }
+      console.error('Error displayed to user:', message);
+    }
+
+    function hideError() {
+      const errorElement = document.getElementById('loadingError');
+      if (errorElement) {
+        errorElement.classList.add('hidden');
+      }
+    }
+
+    // HTML escaping utility for security
+    function escapeHtml(text) {
+      if (typeof text !== 'string') return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Initialize application when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeApp();
+      console.log('Quiz application loaded successfully');
+    });
   </script>
 </body>
 </html>
