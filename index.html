@@ -82,7 +82,33 @@
         <div class="space-y-4">
           <div class="text-xl font-medium">Question ${q.id}: ${q.question}</div>
           <div class="space-y-2">
-            ${q.options.map(opt => `
+            ${q.options.map(opt => {
+              const isSelected = answer.selected === opt;
+              return `
+                <label class="block cursor-pointer">
+                  <input type="radio" name="option" value="${opt}" class="sr-only" ${isSelected ? 'checked' : ''}>
+                  <span onclick="document.querySelectorAll('input[name=option]').forEach(r => r.checked = false); this.previousElementSibling.checked = true; saveAnswer(); renderQuestion();" class="inline-block p-2 border rounded w-full ${isSelected ? 'bg-blue-100 ring-2 ring-blue-500' : 'hover:bg-gray-100'}">
+                    ${opt}
+                  </span>
+                </label>`;
+            }).join('')}
+          </div>
+          <div>
+            <label class="block font-medium">Notes:</label>
+            <textarea id="notes" class="w-full p-2 border rounded">${answer.notes || ''}</textarea>
+          </div>
+          <div>
+            <label class="block font-medium mb-1">Comfort Level:</label>
+            <div id="comfortOptions" class="flex justify-between">
+              ${[1,2,3,4,5].map(val => `
+                <label class="flex flex-col items-center cursor-pointer">
+                  <input type="radio" name="comfort" value="${val}" class="mb-1" ${answer.comfort == val ? 'checked' : ''}>
+                  <span class="text-sm">${['Very Uncomfortable','Uncomfortable','Neutral','Comfortable','Very Comfortable'][val-1]}</span>
+                </label>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
               <label class="block cursor-pointer">
   <input type="radio" name="option" value="${opt}" class="sr-only" ${answer.selected === opt ? 'checked' : ''}>
   <span onclick="document.querySelectorAll('input[name=option]').forEach(r => r.checked = false); this.previousElementSibling.checked = true; saveAnswer(); renderQuestion();" class="inline-block p-2 border rounded w-full ${answer.selected === opt ? 'bg-blue-100 ring-2 ring-blue-500' : 'hover:bg-gray-100'}">
