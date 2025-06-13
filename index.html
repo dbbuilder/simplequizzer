@@ -12,7 +12,7 @@
 
     <!-- Loading/Setup View - Completely separated from quiz navigation -->
     <div id="setupView" class="mb-6">
-      <div id="setupInstructions" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
+      <div id="setupInstructions" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded hidden">
         <h2 class="text-xl font-semibold mb-2">How to Setup a Quiz</h2>
         <p class="text-sm leading-relaxed">
           Provide your quiz in JSON format, either by pasting it into the text area or uploading a <code>.json</code> file. The format should include an array of question objects, each with:
@@ -39,6 +39,9 @@
 
       <div id="setupForm" class="mb-6">
         <h3 class="text-xl font-semibold mb-3">Paste Question JSON</h3>
+        <div class="mb-3">
+          <button class="text-sm text-blue-600 hover:text-blue-800 underline" onclick="toggleInstructions()">Show Setup Instructions</button>
+        </div>
         <textarea id="jsonSeed" class="w-full h-40 p-2 border rounded font-mono" placeholder="Paste your JSON quiz data here..."></textarea>
         <div class="mt-3 flex items-center space-x-4">
           <input type="file" id="jsonFile" accept="application/json" class="flex-1" />
@@ -364,6 +367,7 @@
     // Show report view with detailed results
     function showReportView() {
       try {
+        hideSetupInstructions();
         document.getElementById('quizView').classList.add('hidden');
         document.getElementById('reportView').classList.remove('hidden');
         generateDetailedReport();
@@ -456,18 +460,13 @@
         document.getElementById('jsonFile').value = '';
         hideError();
         
-        // Show setup view and instructions, hide others
+        // Show setup view, hide others
         document.getElementById('setupView').classList.remove('hidden');
         document.getElementById('quizView').classList.add('hidden');
         document.getElementById('reportView').classList.add('hidden');
         
-        // Restore setup instructions with proper styling
-        const setupInstructions = document.getElementById('setupInstructions');
-        if (setupInstructions) {
-          setupInstructions.classList.remove('hidden');
-          setupInstructions.style.opacity = '1';
-          setupInstructions.style.transition = '';
-        }
+        // Ensure setup instructions are hidden by default
+        hideSetupInstructions();
         
         // Reset title
         document.getElementById('quizTitle').textContent = 'Simple Quizzer: Azure Entra to GCP IAM';
@@ -486,7 +485,8 @@
         currentQuestionIndex = 0;
         clearStorageState();
         
-        // Return to quiz view
+        // Hide instructions and return to quiz view
+        hideSetupInstructions();
         document.getElementById('reportView').classList.add('hidden');
         document.getElementById('quizView').classList.remove('hidden');
         
@@ -635,36 +635,60 @@
         clearStorageState();
         quizStartTime = new Date();
         
-        // Step 1: Hide setup instructions first with visual feedback
-        const setupInstructions = document.getElementById('setupInstructions');
-        if (setupInstructions) {
-          setupInstructions.style.transition = 'opacity 0.3s ease-out';
-          setupInstructions.style.opacity = '0';
-          
-          setTimeout(() => {
-            setupInstructions.classList.add('hidden');
-            
-            // Step 2: After instructions fade, transition to quiz view
-            setTimeout(() => {
-              document.getElementById('setupView').classList.add('hidden');
-              document.getElementById('quizView').classList.remove('hidden');
-              
-              // Render first question
-              renderCurrentQuestion();
-              
-              console.log(`Quiz initialized successfully with ${questions.length} questions`);
-            }, 100);
-          }, 300);
-        } else {
-          // Fallback if element not found
-          document.getElementById('setupView').classList.add('hidden');
-          document.getElementById('quizView').classList.remove('hidden');
-          renderCurrentQuestion();
-        }
+        // Hide setup instructions and switch to quiz view
+        hideSetupInstructions();
+        document.getElementById('setupView').classList.add('hidden');
+        document.getElementById('quizView').classList.remove('hidden');
         
+        // Render first question
+        renderCurrentQuestion();
+        
+        console.log(`Quiz initialized successfully with ${questions.length} questions`);
       } catch (error) {
         console.error('Error processing validated JSON:', error);
         showError('Error initializing quiz: ' + error.message);
+      }
+    }
+
+    // Toggle setup instructions visibility
+    function toggleInstructions() {
+      try {
+        const instructionsElement = document.getElementById('setupInstructions');
+        const isHidden = instructionsElement.classList.contains('hidden');
+        
+        if (isHidden) {
+          instructionsElement.classList.remove('hidden');
+          // Update button text
+          event.target.textContent = 'Hide Setup Instructions';
+        } else {
+          instructionsElement.classList.add('hidden');
+          // Update button text
+          event.target.textContent = 'Show Setup Instructions';
+        }
+        
+        console.log(`Setup instructions ${isHidden ? 'shown' : 'hidden'}`);
+      } catch (error) {
+        console.error('Error toggling instructions:', error);
+      }
+    }
+
+    // Hide setup instructions on any view change
+    function hideSetupInstructions() {
+      try {
+        const instructionsElement = document.getElementById('setupInstructions');
+        const toggleButton = document.querySelector('button[onclick="toggleInstructions()"]');
+        
+        if (instructionsElement) {
+          instructionsElement.classList.add('hidden');
+        }
+        
+        if (toggleButton) {
+          toggleButton.textContent = 'Show Setup Instructions';
+        }
+        
+        console.log('Setup instructions hidden');
+      } catch (error) {
+        console.error('Error hiding setup instructions:', error);
       }
     }
 
