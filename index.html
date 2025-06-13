@@ -237,29 +237,29 @@ function loadFromJson() {
       }
     }
 
-    function processJson(jsonText) {
-  const parsed = JSON.parse(jsonText);
-  validateJson(parsed);
-      const parsed = JSON.parse(jsonText);
-      const array = Array.isArray(parsed) ? parsed : parsed.questions;
-      if (!Array.isArray(array)) {
-        throw new Error('Expected an array or an object with a "questions" array.');
-      }
-      if (parsed.title) {
-        document.getElementById('quizTitle').innerText = parsed.title;
-      }
-      questions = array.map((q, idx) => ({
-        id: idx + 1,
-        question: q.question,
-        options: q.options,
-        answer: q.answer,
-        explanation: q.explanation || null
-      }));
-      current = 0;
-      document.getElementById('jsonView').classList.add('hidden');
-      document.getElementById('quizView').classList.remove('hidden');
-      renderQuestion();
-    }
+	function processJson(jsonText) {
+	  const parsed = JSON.parse(jsonText);
+	  validateJson(parsed);
+	  const array = Array.isArray(parsed) ? parsed : parsed.questions;
+	  if (!Array.isArray(array)) {
+		throw new Error('Expected an array or an object with a "questions" array.');
+	  }
+	  if (parsed.title) {
+		document.getElementById('quizTitle').innerText = parsed.title;
+	  }
+	  questions = array.map((q, idx) => ({
+		id: idx + 1,
+		question: q.question,
+		options: q.options,
+		answer: q.answer,
+		explanation: q.explanation || null
+	  }));
+	  current = 0;
+	  document.getElementById('jsonView').classList.add('hidden');
+	  document.getElementById('quizView').classList.remove('hidden');
+	  renderQuestion();
+	}
+
   </script>
 </body>
 </html>
